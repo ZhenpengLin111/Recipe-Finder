@@ -55,7 +55,7 @@ const IngredientsSearch = () => {
                 <title>IngredientsSearch | Recipe Finder</title>
             </Helmet>
             <div className='Ingredients-Search-Content'>
-                <img src={pic23} />
+                <img src={pic23} alt=''/>
                 <div className='Search-top'>
                     <h1>Search Recipes by Ingredients</h1>
                     <div className='Ingredients-SearchBar'>

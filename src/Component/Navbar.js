@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import "../Styles/Navbar.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils } from '@fortawesome/free-solid-svg-icons';
-import logo from "../assets/Recipe-finder-icon.png";
 
 
 function Navbar() {
@@ -12,7 +11,6 @@ function Navbar() {
     
     
     useEffect(() => {
-        const aboutElement = document.querySelector('.About');
         const handleScroll = () => {
             
             console.log('Scrolling...');
@@ -29,13 +27,6 @@ function Navbar() {
             window.removeEventListener('scroll', handleScroll);
         };
     },[]);
-
-    useEffect(() => {
-        const navbar = document.querySelector('.Navbar');
-        console.log(isTransparent);
-        // Add any side effect logic you want to perform after isTransparent is updated
-    }, [isTransparent]); 
-
 
     const handleLinkClick = () => {
         setMenuOpen(false);

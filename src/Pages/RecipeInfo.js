@@ -162,7 +162,7 @@ function RecipeInfo() {
                 <h2>Ingredients:</h2>
                 {recipeInfo.extendedIngredients.map((Ingredient, index) => (
                 <li className='RecipeInfo-ingredient' key={index}>
-                    <img src={`https://spoonacular.com/cdn/ingredients_100x100/${Ingredient.image}`} />
+                    <img src={`https://spoonacular.com/cdn/ingredients_100x100/${Ingredient.image}`} alt=''/>
                     <h4>{Ingredient.name}</h4>
                     <p>{Ingredient.measures.us.amount} {Ingredient.measures.us.unitLong}</p>
                 </li>

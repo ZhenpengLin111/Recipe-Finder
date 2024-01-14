@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,6 @@ import { faFire } from '@fortawesome/free-solid-svg-icons';
 import pic22 from "../assets/pic22.jpg";
 
 function NutrientsSearch() {
-  const [nutrients, setNutrients] = useState('');
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -202,7 +201,7 @@ function NutrientsSearch() {
                   <button type="submit" onClick={showResults}>Search</button>
                 </form>
             </div>
-            <img src={pic22} />
+            <img src={pic22} alt=''/>
           </div>
 
             <div className='Results'>

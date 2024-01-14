@@ -91,81 +91,81 @@ function About() {
                 <div className="slider">
                     <div className="slide-track1">
                         <div className="slide">
-                            <img src={pic1} />
+                            <img src={pic1} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic2} />
+                            <img src={pic2} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic3} />
+                            <img src={pic3} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic4} />
+                            <img src={pic4} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic5} />
+                            <img src={pic5} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic6} />
+                            <img src={pic6} alt=""/>
                         </div>
 
                         <div className="slide">
-                            <img src={pic1} />
+                            <img src={pic1} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic2} />
+                            <img src={pic2} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic3} />
+                            <img src={pic3} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic4} />
+                            <img src={pic4} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic5} />
+                            <img src={pic5} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic6} />
+                            <img src={pic6} alt=""/>
                         </div>
                     </div>
 
                     <div className="slide-track2">
                         <div className="slide">
-                            <img src={pic7} />
+                            <img src={pic7} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic8} />
+                            <img src={pic8} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic9} />
+                            <img src={pic9} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic10} />
+                            <img src={pic10} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic11} />
+                            <img src={pic11} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic12} />
+                            <img src={pic12} alt=""/>
                         </div>
 
                         <div className="slide">
-                            <img src={pic7} />
+                            <img src={pic7} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic8} />
+                            <img src={pic8} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic9} />
+                            <img src={pic9} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic10} />
+                            <img src={pic10} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic11} />
+                            <img src={pic11} alt=""/>
                         </div>
                         <div className="slide">
-                            <img src={pic12} />
+                            <img src={pic12} alt=""/>
                         </div>
                     </div>
                 </div>
@@ -180,11 +180,11 @@ function About() {
                     </div>
                     <div className="nutrient-section-photos">
                         <div className="photos-left">
-                            <img src={pic15} className={`pic15 ${isSection1Visible ? 'fade-in2' : ''}`}></img>
-                            <img src={pic14} className={`pic14 ${isSection1Visible ? 'fade-in3' : ''}`}></img>
+                            <img src={pic15} alt="" className={`pic15 ${isSection1Visible ? 'fade-in2' : ''}`}></img>
+                            <img src={pic14} alt="" className={`pic14 ${isSection1Visible ? 'fade-in3' : ''}`}></img>
                         </div>
                         <div className="photos-right">
-                            <img src={pic13} className={`pic13 ${isSection1Visible ? 'fade-in4' : ''}`}></img>
+                            <img src={pic13} alt="" className={`pic13 ${isSection1Visible ? 'fade-in4' : ''}`}></img>
                         </div>
                     </div>
                 </div>
@@ -196,12 +196,12 @@ function About() {
                         </p>
                     </div>
                     <div className="IMAGES">
-                        <img className="pic16" src={pic16} />
-                        <img className="pic17" src={pic18} />
-                        <img className="pic18" src={pic17} />
-                        <img className="pic19" src={pic20} />
-                        <img className="pic20" src={pic19} />
-                        <img className="pic21" src={pic21} />
+                        <img className="pic16" src={pic16} alt=""/>
+                        <img className="pic17" src={pic18} alt=""/>
+                        <img className="pic18" src={pic17} alt=""/>
+                        <img className="pic19" src={pic20} alt=""/>
+                        <img className="pic20" src={pic19} alt=""/>
+                        <img className="pic21" src={pic21} alt=""/>
                     </div>
                 </div>
                 <Footer />
