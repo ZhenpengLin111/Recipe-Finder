@@ -78,7 +78,6 @@
     opacity: 0;
     transform: translateY(50px);
     font-size: 3em;
-    font-family: cursive;
     animation: fadeInFromBottom .8s ease-out forwards;
     animation-delay: .2s;
 }

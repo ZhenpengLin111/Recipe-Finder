@@ -111,7 +111,6 @@
     flex-direction: column;
     z-index: 1;
     animation: fadein .3s ease-in-out;
-    font-family: cursive;
 }
 
 .nav-2 li {
@@ -129,6 +128,7 @@
     color: black;
     font-size: 75px;
     transition: all .5s ease;
+    
 }
 
 .nav-2 li a:hover {
