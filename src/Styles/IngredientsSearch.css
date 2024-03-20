@@ -7,6 +7,10 @@
     animation: fadeInLeft .4s ease;
 }
 
+.Search-top h1 {
+    text-align: center;
+}
+
 .Ingredients-SearchBar {
     width: 350px;
     border: 1px solid white;
@@ -34,6 +38,7 @@
     font-size: 1em;
     cursor: pointer;
     transition: 1s ease;
+    background-color: white;
 }
 
 .Ingredients-SearchBar button:hover {
@@ -55,13 +60,13 @@
 
 .missedIngredients {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     width: 60%;
     margin-block-start: 0em;
     padding-inline-start: 0px;
     color: gray;
-    margin-top: 20px;
 }
 
 .missedIngredients-list {
@@ -93,6 +98,10 @@
 #notification.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+.recipe-item h2 {
+    text-align: center;
 }
 
 
@@ -130,5 +139,9 @@
 @media (max-width: 500px) {
     #notification {
         left: 15%;
+    }
+
+    .missedIngredients {
+        width: 90%;
     }
 }
