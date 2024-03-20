@@ -93,6 +93,7 @@
 .buttons {
     display: flex;
     margin-top: 40px;
+    text-align: center;
 }
 
 .button {
@@ -357,17 +358,28 @@
 }
 
 @media (max-width: 911px) {
+    .intro {
+        padding-left: 40px;
+    }
     .buttons {
         display: flex;
         flex-direction: column;
     }
 
     .ingredient-search-button {
+        margin-top: 10px;
         margin-left: 0;
+    }
+
+    .nutrient-section-info p {
+        margin-left: 20px;
     }
 }
 
 @media (max-width: 541px) {
+    .About {
+        text-align: center;
+    }
     .first-page {
         height: auto;
         display: flex;
@@ -375,7 +387,7 @@
     }
 
     .intro {
-        margin-top: 50px;
+        margin-top: 80px;
         width: 90%;
         padding-left: 0;
     }
@@ -385,6 +397,7 @@
     }
 
     .slider {
+        margin-top: 50px;
         width: 90%;
         height: 50vh;
     }
