@@ -49,6 +49,7 @@
 
 .RecipeInfo-left h1 {
     font-size: 2.5em;
+    text-align: center;
 }
 
 .RecipeInfo-main img {
@@ -62,6 +63,9 @@
 .RecipeInfo-top {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .cook-time,
@@ -98,6 +102,7 @@
     list-style: none;
     margin-block-start: 0em;
     padding-inline-start: 0px;
+    justify-content: center;
 }
 
 .dishType {
@@ -118,6 +123,7 @@
     border-radius: 15px;
     padding: 20px;
     justify-content: space-between;
+    margin-top: 30px;
 }
 
 .RecipeInfo-nutrients {
@@ -240,5 +246,13 @@
 
     .RecipeInfo-nutrients {
         width: 100%;
+    }
+
+    .RecipeInfo-container {
+        margin-top: 100px;
+    }
+
+    .RecipeInfo-left h1 {
+        margin-top: 0;
     }
 }
