@@ -129,140 +129,140 @@ function NutrientsSearch() {
       setLoading(false);
     }
   }; */
-  
-    return (
-        <div className="Nutrients">
-          <Helmet>
-            <title>NutrientsSearch | Recipe Finder</title>
-          </Helmet>
-          <div className='Content'>
-          <div className='Nutrients-Search-content'>
-            <div className="Search-top">
-                <h1>Search Recipes by Nutrients</h1>
-                <form onSubmit={fetchRecipes} className='Nutrients-form'>
-                  <div className='type'>
-                    <div className='Nutrients-type'>
-                      <label>Min-Calories:</label>
-                      <div>
-                        <input type="range" min="0" max="1000" value={minCalories} onChange={(e) => setMinCalories(e.target.value)} />
-                        <span>{minCalories}</span>
-                      </div>
-                    </div>
-                    <div className='Nutrients-type'>
-                      <label>Max-Calories:</label>
-                      <div>
-                        <input type="range" min="0" max="1000" value={maxCalories} onChange={(e) => setMaxCalories(e.target.value)} />
-                        <span>{maxCalories}</span>
-                      </div>
-                    </div>
-                    <div className='Nutrients-type'>
-                      <label>Min-Protein:</label>
-                      <div>
-                        <input type="range" min="0" max="100" value={minProtein} onChange={(e) => setMinProtein(e.target.value)} />
-                        <span>{minProtein}g</span>
-                      </div>
-                    </div>
-                    <div className='Nutrients-type'>
-                      <label>Max-Protein:</label>
-                      <div>
-                        <input type="range" min="0" max="100" value={maxProtein} onChange={(e) => setMaxProtein(e.target.value)} />
-                        <span>{maxProtein}g</span>
-                      </div>
-                    </div>
-                    <div className='Nutrients-type'>
-                      <label>Min-Carbs:</label>
-                      <div>
-                        <input type="range" min="0" max="100" value={minCarbs} onChange={(e) => setMinCarbs(e.target.value)} />
-                        <span>{minCarbs}g</span>
-                      </div> 
-                    </div>
-                    <div className='Nutrients-type'>
-                      <label>Max-Carbs:</label>
-                      <div>
-                        <input type="range" min="0" max="100" value={maxCarbs} onChange={(e) => setMaxCarbs(e.target.value)} />
-                        <span>{maxCarbs}g</span>
-                      </div>
-                    </div>
-                    <div className='Nutrients-type'>
-                      <label>Min-Fat:</label>
-                      <div>
-                        <input type="range" min="0" max="100" value={minFat} onChange={(e) => setMinFat(e.target.value)} />
-                        <span>{minFat}g</span>
-                      </div>
-                    </div>
-                    <div className='Nutrients-type'>
-                      <label>Max-Fat:</label>
-                      <div>
-                        <input type="range" min="0" max="100" value={maxFat} onChange={(e) => setMaxFat(e.target.value)} />
-                        <span>{maxFat}g</span>
-                      </div>
-                    </div>
-                  </div>
-                  <button type="submit" onClick={showResults}>Search</button>
-                </form>
-            </div>
-            <img src={pic22} alt=''/>
-          </div>
 
-            <div className='Results'>
-              <h1>Search Results:</h1>
-              <span className='close' onClick={closeResults}><i>&times;</i></span>
-              <div className='recipe-container'>
-                {loading && <p>Loading...</p>}
-                {error && <p>{error}</p>}
-                {recipes.map((recipe, index) => (
-                <Link key={recipe.id} to={`/recipe-info/${recipe.id}`} className="recipe-item">
-                  {console.log(recipe.id)}
-                  <div className='recipe-img'>
-                    <img src={recipe.image} alt={recipe.title} />
+  return (
+    <div className="Nutrients">
+      <Helmet>
+        <title>NutrientsSearch | Recipe Finder</title>
+      </Helmet>
+      <div className='Content'>
+        <div className='Nutrients-Search-content'>
+          <div className="Search-top">
+            <h1>Search Recipes by Nutrients</h1>
+            <form onSubmit={fetchRecipes} className='Nutrients-form'>
+              <div className='type'>
+                <div className='Nutrients-type'>
+                  <label>Min-Calories:</label>
+                  <div>
+                    <input type="range" min="0" max="1000" value={minCalories} onChange={(e) => setMinCalories(e.target.value)} />
+                    <span>{minCalories}</span>
                   </div>
-                  <h2>{recipe.title}</h2>
-                  <div className="recipe-details">
-                    <div className='recipe-left'>
-                      <p><FontAwesomeIcon icon={faFire} className='fire'/>{recipe.calories} Calories </p>
-                    </div>
-                    <div className='recipe-right'>
-                      <p>
-                        <span className={`recipe-right-top top1 ${recipeVisibility[index] ? 'visible' : ''}`}>
-                          {recipe.protein} Protein
-                        </span>
-                        <span className='b1'
-                        onMouseOver={() => showTop(index)}
-                        onMouseOut={() => hideTop(index)}><i className='min m1'/>{recipe.protein}
-                        </span>   
-                      </p>
-                      <p>
-                        <span className={`recipe-right-top top2 ${recipeVisibility2[index] ? 'visible' : ''}`}>
-                          {recipe.fat} Fat
-                        </span>
-                        <span className='b2'
-                        onMouseOver={() => showTop2(index)}
-                        onMouseOut={() => hideTop2(index)}><i className='min m2'/>{recipe.fat}
-                        </span>   
-                      </p>
-                      <p>
-                        <span className={`recipe-right-top top3 ${recipeVisibility3[index] ? 'visible' : ''}`}>
-                          {recipe.carbs} Carbs
-                        </span>
-                        <span className='b3'
-                        onMouseOver={() => showTop3(index)}
-                        onMouseOut={() => hideTop3(index)}><i className='min m3'/>{recipe.carbs}
-                        </span>   
-                      </p>
-                    </div>
+                </div>
+                <div className='Nutrients-type'>
+                  <label>Max-Calories:</label>
+                  <div>
+                    <input type="range" min="0" max="1000" value={maxCalories} onChange={(e) => setMaxCalories(e.target.value)} />
+                    <span>{maxCalories}</span>
                   </div>
-                </Link>
-              ))}
+                </div>
+                <div className='Nutrients-type'>
+                  <label>Min-Protein:</label>
+                  <div>
+                    <input type="range" min="0" max="100" value={minProtein} onChange={(e) => setMinProtein(e.target.value)} />
+                    <span>{minProtein}g</span>
+                  </div>
+                </div>
+                <div className='Nutrients-type'>
+                  <label>Max-Protein:</label>
+                  <div>
+                    <input type="range" min="0" max="100" value={maxProtein} onChange={(e) => setMaxProtein(e.target.value)} />
+                    <span>{maxProtein}g</span>
+                  </div>
+                </div>
+                <div className='Nutrients-type'>
+                  <label>Min-Carbs:</label>
+                  <div>
+                    <input type="range" min="0" max="100" value={minCarbs} onChange={(e) => setMinCarbs(e.target.value)} />
+                    <span>{minCarbs}g</span>
+                  </div>
+                </div>
+                <div className='Nutrients-type'>
+                  <label>Max-Carbs:</label>
+                  <div>
+                    <input type="range" min="0" max="100" value={maxCarbs} onChange={(e) => setMaxCarbs(e.target.value)} />
+                    <span>{maxCarbs}g</span>
+                  </div>
+                </div>
+                <div className='Nutrients-type'>
+                  <label>Min-Fat:</label>
+                  <div>
+                    <input type="range" min="0" max="100" value={minFat} onChange={(e) => setMinFat(e.target.value)} />
+                    <span>{minFat}g</span>
+                  </div>
+                </div>
+                <div className='Nutrients-type'>
+                  <label>Max-Fat:</label>
+                  <div>
+                    <input type="range" min="0" max="100" value={maxFat} onChange={(e) => setMaxFat(e.target.value)} />
+                    <span>{maxFat}g</span>
+                  </div>
+                </div>
               </div>
-            </div>
-            
-            </div>
-            <div className='Footer'>
-              <Footer />
-            </div>
+              <button type="submit" onClick={showResults}>Search</button>
+            </form>
+          </div>
+          <img src={pic22} alt='' />
         </div>
 
-    )
+        <div className='Results'>
+          <h1>Search Results:</h1>
+          <span className='close' onClick={closeResults}><i>&times;</i></span>
+          <div className='recipe-container'>
+            {loading && <p>Loading...</p>}
+            {error && <p>{error}</p>}
+            {recipes.map((recipe, index) => (
+              <Link key={recipe.id} to={`/recipe-info/${recipe.id}`} className="recipe-item">
+                {console.log(recipe.id)}
+                <div className='recipe-img'>
+                  <img src={recipe.image} alt={recipe.title} />
+                </div>
+                <h2>{recipe.title}</h2>
+                <div className="recipe-details">
+                  <div className='recipe-left'>
+                    <p><FontAwesomeIcon icon={faFire} className='fire' />{recipe.calories} Calories </p>
+                  </div>
+                  <div className='recipe-right'>
+                    <p>
+                      <span className={`recipe-right-top top1 ${recipeVisibility[index] ? 'visible' : ''}`}>
+                        {recipe.protein} Protein
+                      </span>
+                      <span className='b1'
+                        onMouseOver={() => showTop(index)}
+                        onMouseOut={() => hideTop(index)}><i className='min m1' />{recipe.protein}
+                      </span>
+                    </p>
+                    <p>
+                      <span className={`recipe-right-top top2 ${recipeVisibility2[index] ? 'visible' : ''}`}>
+                        {recipe.fat} Fat
+                      </span>
+                      <span className='b2'
+                        onMouseOver={() => showTop2(index)}
+                        onMouseOut={() => hideTop2(index)}><i className='min m2' />{recipe.fat}
+                      </span>
+                    </p>
+                    <p>
+                      <span className={`recipe-right-top top3 ${recipeVisibility3[index] ? 'visible' : ''}`}>
+                        {recipe.carbs} Carbs
+                      </span>
+                      <span className='b3'
+                        onMouseOver={() => showTop3(index)}
+                        onMouseOut={() => hideTop3(index)}><i className='min m3' />{recipe.carbs}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+
+      </div>
+      <div className='Footer'>
+        <Footer />
+      </div>
+    </div>
+
+  )
 }
 
 export default NutrientsSearch;

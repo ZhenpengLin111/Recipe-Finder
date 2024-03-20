@@ -15,13 +15,13 @@ const IngredientsSearch = () => {
     function showResults() {
         const Results = document.querySelector('.Results');
         Results.classList.add('show');
-      }
-    
+    }
+
     function closeResults() {
         const Results = document.querySelector('.Results');
         Results.classList.remove('show');
     }
-    
+
     const handleSearch = async () => {
         if (ingredients) {
             try {
@@ -36,16 +36,16 @@ const IngredientsSearch = () => {
                 showResults();
             } catch (error) {
                 setError('Failed to fetch recipes. Please try again later.');
-              } finally {
+            } finally {
                 setLoading(false);
-              }
-            
+            }
+
         } else {
             const notification = document.querySelector("#notification");
             notification.classList.add('show');
             setTimeout(() => {
                 notification.classList.remove('show');
-              }, 3000);
+            }, 3000);
         }
     };
 
@@ -55,17 +55,17 @@ const IngredientsSearch = () => {
                 <title>IngredientsSearch | Recipe Finder</title>
             </Helmet>
             <div className='Ingredients-Search-Content'>
-                <img src={pic23} alt=''/>
+                <img src={pic23} alt='' />
                 <div className='Search-top'>
                     <h1>Search Recipes by Ingredients</h1>
                     <div className='Ingredients-SearchBar'>
-                        <input 
-                        type="text" 
-                        placeholder="Enter ingredients separated by commas..." 
-                        value={ingredients}
-                        onChange={(e) => setIngredients(e.target.value)}
+                        <input
+                            type="text"
+                            placeholder="Enter ingredients separated by commas..."
+                            value={ingredients}
+                            onChange={(e) => setIngredients(e.target.value)}
                         />
-                        <button onClick={() =>{ handleSearch(); }}>Search</button> 
+                        <button onClick={() => { handleSearch(); }}>Search</button>
                     </div>
                 </div>
             </div>
@@ -74,25 +74,25 @@ const IngredientsSearch = () => {
                 <h1>Search Results:</h1>
                 <span className='close' onClick={closeResults}><i>&times;</i></span>
                 <div className='recipe-container'>
-                {loading && <p>Loading...</p>}
-                {error && <p>{error}</p>}
+                    {loading && <p>Loading...</p>}
+                    {error && <p>{error}</p>}
                     {recipes.map((recipe) => (
-                    <Link key={recipe.id} to={`/recipe-info/${recipe.id}`} className="recipe-item">
-                        <div className='recipe-img'>
-                            <img src={recipe.image} alt={recipe.title} />
-                        </div>
-                        <h2>{recipe.title}</h2>
-                        <ul className='missedIngredients'>
-                            <h4>Missed Ingredients:</h4>
-                            <div className='missedIngredients-list'>
-                                {recipe.missedIngredients.map((missedIngredient, index) => (
-                                <li className='missedIngredient' key={index}>{missedIngredient.name}</li>
-                            ))}
+                        <Link key={recipe.id} to={`/recipe-info/${recipe.id}`} className="recipe-item">
+                            <div className='recipe-img'>
+                                <img src={recipe.image} alt={recipe.title} />
                             </div>
-                            
-                        </ul>
-                    </Link>
-                ))}
+                            <h2>{recipe.title}</h2>
+                            <ul className='missedIngredients'>
+                                <h4>Missed Ingredients:</h4>
+                                <div className='missedIngredients-list'>
+                                    {recipe.missedIngredients.map((missedIngredient, index) => (
+                                        <li className='missedIngredient' key={index}>{missedIngredient.name}</li>
+                                    ))}
+                                </div>
+
+                            </ul>
+                        </Link>
+                    ))}
                 </div>
             </div>
             <div id='notification' className='hidden'>

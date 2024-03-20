@@ -34,32 +34,32 @@ function About() {
     useEffect(() => {
         const handleScroll = () => {
             console.log("functon called")
-          const nutrient_section = document.querySelector('.nutrient-section');
-          if (nutrient_section) {
-            const sectionTop = nutrient_section.getBoundingClientRect().top;
-            setIsSection1Visible(sectionTop <= window.innerHeight / 2);
-          }
+            const nutrient_section = document.querySelector('.nutrient-section');
+            if (nutrient_section) {
+                const sectionTop = nutrient_section.getBoundingClientRect().top;
+                setIsSection1Visible(sectionTop <= window.innerHeight / 2);
+            }
         };
         window.addEventListener('scroll', handleScroll);
         return () => {
-          window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', handleScroll);
         };
-      }, []);
+    }, []);
 
-      useEffect(() => {
+    useEffect(() => {
         const handleScroll = () => {
             console.log("functon2 called")
-          const ingredient_section = document.querySelector('.ingredient-section');
-          if (ingredient_section) {
-            const sectionTop = ingredient_section.getBoundingClientRect().top;
-            setIsSection2Visible(sectionTop <= window.innerHeight / 2);
-          }
+            const ingredient_section = document.querySelector('.ingredient-section');
+            if (ingredient_section) {
+                const sectionTop = ingredient_section.getBoundingClientRect().top;
+                setIsSection2Visible(sectionTop <= window.innerHeight / 2);
+            }
         };
         window.addEventListener('scroll', handleScroll);
         return () => {
-          window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('scroll', handleScroll);
         };
-      }, []);
+    }, []);
     return (
         <div className="About">
             <Helmet>
@@ -68,9 +68,9 @@ function About() {
             <div className="first-page">
                 <div className="intro">
                     <h1>RecipeFinder: Your Culinary Companion</h1>
-                    <p>Welcome to RecipeFinder, where culinary exploration meets smart, 
-                        personalized recipe recommendations. Whether you're aiming for a 
-                        health-conscious meal or have a specific set of ingredients on hand, 
+                    <p>Welcome to RecipeFinder, where culinary exploration meets smart,
+                        personalized recipe recommendations. Whether you're aiming for a
+                        health-conscious meal or have a specific set of ingredients on hand,
                         RecipeFinder is here to make your cooking journey delightful and hassle-free.
                     </p>
                     <div className="buttons">
@@ -82,7 +82,7 @@ function About() {
                         <div className="button ingredient-search-button">
                             <a href="/IngredientsSearch">
                                 <span>Find Recipes By Ingredients</span>
-                                <FontAwesomeIcon icon={faArrowRight} className="arrowRight"/>
+                                <FontAwesomeIcon icon={faArrowRight} className="arrowRight" />
                             </a>
                         </div>
                     </div>
@@ -91,81 +91,81 @@ function About() {
                 <div className="slider">
                     <div className="slide-track1">
                         <div className="slide">
-                            <img src={pic1} alt=""/>
+                            <img src={pic1} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic2} alt=""/>
+                            <img src={pic2} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic3} alt=""/>
+                            <img src={pic3} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic4} alt=""/>
+                            <img src={pic4} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic5} alt=""/>
+                            <img src={pic5} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic6} alt=""/>
+                            <img src={pic6} alt="" />
                         </div>
 
                         <div className="slide">
-                            <img src={pic1} alt=""/>
+                            <img src={pic1} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic2} alt=""/>
+                            <img src={pic2} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic3} alt=""/>
+                            <img src={pic3} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic4} alt=""/>
+                            <img src={pic4} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic5} alt=""/>
+                            <img src={pic5} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic6} alt=""/>
+                            <img src={pic6} alt="" />
                         </div>
                     </div>
 
                     <div className="slide-track2">
                         <div className="slide">
-                            <img src={pic7} alt=""/>
+                            <img src={pic7} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic8} alt=""/>
+                            <img src={pic8} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic9} alt=""/>
+                            <img src={pic9} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic10} alt=""/>
+                            <img src={pic10} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic11} alt=""/>
+                            <img src={pic11} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic12} alt=""/>
+                            <img src={pic12} alt="" />
                         </div>
 
                         <div className="slide">
-                            <img src={pic7} alt=""/>
+                            <img src={pic7} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic8} alt=""/>
+                            <img src={pic8} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic9} alt=""/>
+                            <img src={pic9} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic10} alt=""/>
+                            <img src={pic10} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic11} alt=""/>
+                            <img src={pic11} alt="" />
                         </div>
                         <div className="slide">
-                            <img src={pic12} alt=""/>
+                            <img src={pic12} alt="" />
                         </div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@ function About() {
                 <div className={`nutrient-section ${isSection1Visible ? 'fade-in' : ''}`}>
                     <div className={`nutrient-section-info ${isSection1Visible ? 'fade-in1' : ''}`}>
                         <h1>Nutrient-Focused Exploration:</h1>
-                        <p>Looking to maintain a balanced diet? Specify your nutritional preferences, 
+                        <p>Looking to maintain a balanced diet? Specify your nutritional preferences,
                             and RecipeFinder will curate recipes that align with your dietary goals.
                         </p>
                     </div>
@@ -191,22 +191,22 @@ function About() {
                 <div className={`ingredient-section ${isSection2Visible ? 'fade-in-left' : ''}`}>
                     <div className={`ingredient-section-info ${isSection2Visible ? 'fade-in-top' : ''}`}>
                         <h1>Ingredient-Based Searching:</h1>
-                        <p>Simply input the ingredients you have, and RecipeFinder will craft delectable recipes 
+                        <p>Simply input the ingredients you have, and RecipeFinder will craft delectable recipes
                             tailored to your kitchen inventory.
                         </p>
                     </div>
                     <div className="IMAGES">
-                        <img className="pic16" src={pic16} alt=""/>
-                        <img className="pic17" src={pic18} alt=""/>
-                        <img className="pic18" src={pic17} alt=""/>
-                        <img className="pic19" src={pic20} alt=""/>
-                        <img className="pic20" src={pic19} alt=""/>
-                        <img className="pic21" src={pic21} alt=""/>
+                        <img className="pic16" src={pic16} alt="" />
+                        <img className="pic17" src={pic18} alt="" />
+                        <img className="pic18" src={pic17} alt="" />
+                        <img className="pic19" src={pic20} alt="" />
+                        <img className="pic20" src={pic19} alt="" />
+                        <img className="pic21" src={pic21} alt="" />
                     </div>
                 </div>
                 <Footer />
-            </div> 
-            
+            </div>
+
         </div>
     )
 }

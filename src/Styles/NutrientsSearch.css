@@ -1,10 +1,18 @@
 .Nutrients {
-    width: 100%;
+    width: 100vw;
     height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     animation: fadeInLeft .4s ease;
+    text-align: center;
+}
+
+.Content {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .Nutrients-Search-content {
@@ -60,6 +68,7 @@
     animation: fadeInFromBottom .8s ease-out forwards;
     animation-delay: .6s;
     cursor: pointer;
+    background-color: white;
 }
 
 .Nutrients-form button:hover {
@@ -363,7 +372,7 @@ input[type="range"]:active::-webkit-slider-thumb {
     .recipe-details {
         display: flex;
         flex-direction: column;
-        padding-left: 20px;
+        align-items: center;
     }
 
     .recipe-left {
