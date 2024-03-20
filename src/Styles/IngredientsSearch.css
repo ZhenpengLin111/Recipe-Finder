@@ -32,6 +32,9 @@
 }
 
 .Ingredients-SearchBar button {
+    padding: 5px;
+    text-align: center;
+    color: black;
     width: 20%;
     border: none;
     border-radius: 15px;
