@@ -408,6 +408,10 @@
         flex-direction: column;
     }
 
+    .ingredient-section {
+        margin-top: 80px;
+    }
+
     .ingredient-section-info {
         width: 90%;
     }
