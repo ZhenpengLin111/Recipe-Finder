@@ -1,14 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital@1&family=Open+Sans:wght@500&display=swap');
+
 .App {
   height: 100vh;
   width: auto;
   background-color: black;
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: italic;
 }
 
-
-
-
-
-
-
-
- 
+p {
+  font-family: 'Times New Roman';
+  line-height: 26px;
+}
