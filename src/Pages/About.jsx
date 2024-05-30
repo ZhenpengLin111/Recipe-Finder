@@ -33,7 +33,7 @@ function About() {
 
     useEffect(() => {
         const handleScroll = () => {
-            console.log("functon called")
+            // console.log("functon called")
             const nutrient_section = document.querySelector('.nutrient-section');
             if (nutrient_section) {
                 const sectionTop = nutrient_section.getBoundingClientRect().top;
@@ -48,7 +48,7 @@ function About() {
 
     useEffect(() => {
         const handleScroll = () => {
-            console.log("functon2 called")
+            // console.log("functon2 called")
             const ingredient_section = document.querySelector('.ingredient-section');
             if (ingredient_section) {
                 const sectionTop = ingredient_section.getBoundingClientRect().top;

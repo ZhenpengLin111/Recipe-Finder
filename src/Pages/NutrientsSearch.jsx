@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
 import Footer from '../Component/Footer';
@@ -7,6 +6,7 @@ import "../Styles/NutrientsSearch.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
 import pic22 from "../assets/pic22.jpg";
+import { fetchRecipesByNutrientsAPI } from '../apis/recipes';
 
 function NutrientsSearch() {
   const [recipes, setRecipes] = useState([]);
@@ -76,59 +76,23 @@ function NutrientsSearch() {
     e.preventDefault();
     try {
       setLoading(true);
-      const api_key = "4f630803698b4cbd930e7660732d2328";
-      const response = await axios.get('https://api.spoonacular.com/recipes/findByNutrients', {
-        params: {
-          minCalories,
-          maxCalories,
-          minProtein,
-          maxProtein,
-          minFat,
-          maxFat,
-          minCarbs,
-          maxCarbs,
-          apiKey: api_key, // Replace with your actual API key
-        },
-      });
-
-      setRecipes(response.data);
+      const res = await fetchRecipesByNutrientsAPI({
+        minCalories,
+        maxCalories,
+        minProtein,
+        maxProtein,
+        minFat,
+        maxFat,
+        minCarbs,
+        maxCarbs
+      })
+      setRecipes(res.data);
     } catch (error) {
       setError(error.message);
     } finally {
       setLoading(false);
     }
   };
-
-
-  /*const handleSearch = async (e) => {
-    e.preventDefault();
-    console.log('handleSearch called');
-    setLoading(true);
-
-    try {
-      // Your API call
-      const response = await axios.post('http://localhost:3001/api/recipes', {
-        nutrients: {
-          minCalories,
-          maxCalories,
-          minProtein,
-          maxProtein,
-          minFat,
-          maxFat,
-          minCarbs,
-          maxCarbs,
-        },
-      });
-  
-      console.log(response.data)
-      setRecipes(response.data);
-      setError('');
-    } catch (error) {
-      setError('Failed to fetch recipes. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  }; */
 
   return (
     <div className="Nutrients">

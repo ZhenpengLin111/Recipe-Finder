@@ -11,9 +11,9 @@ function Navbar() {
     
     
     useEffect(() => {
+        // function to set visibility of navbar while scrolling
         const handleScroll = () => {
-            
-            console.log('Scrolling...');
+            // console.log('Scrolling...');
             if (window.scrollY > 50) {
                 setIsTransparent(false);
             } else {

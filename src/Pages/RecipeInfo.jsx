@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import axios from 'axios';
 import "../Styles/RecipeInfo.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFireBurner } from '@fortawesome/free-solid-svg-icons';
@@ -10,10 +9,9 @@ import { faPerson } from '@fortawesome/free-solid-svg-icons';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
 import Footer from '../Component/Footer';
+import { fetchNutrientsInfoAPI, fetchRecipeInfoAPI } from '../apis/recipes';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
-
-
 
 function RecipeInfo() {
   const { id } = useParams();
@@ -23,16 +21,11 @@ function RecipeInfo() {
   const [error, setError] = useState('');
 
   useEffect(() => {
+    // Get nutrients info for chart
     const fetchNutrients = async () => {
       try {
-        const api_key = "4f630803698b4cbd930e7660732d2328";
-        const url = `https://api.spoonacular.com/recipes/${id}/nutritionWidget.json`;
-        const response = await axios.get(url, {
-          headers: {
-            "x-api-key": api_key
-          }
-        });
-        setNutrients(response.data);
+        const res = await fetchNutrientsInfoAPI(id)
+        setNutrients(res.data);
       } catch (error) {
         setError('Failed to fetch nutrients information. Please try again later');
       }
@@ -41,25 +34,18 @@ function RecipeInfo() {
   }, [id]);
 
   useEffect(() => {
+    // Get recipe info
     const fetchRecipeInfo = async () => {
       try {
-        const api_key = "4f630803698b4cbd930e7660732d2328";
-        const url = `https://api.spoonacular.com/recipes/${id}/information`;
-        const response = await axios.get(url, {
-          headers: {
-            "x-api-key": api_key
-          }
-        });
-        setRecipeInfo(response.data);
+        const res = await fetchRecipeInfoAPI(id)
+        setRecipeInfo(res.data)
         setLoading(false);
       } catch (error) {
         setError('Failed to fetch recipe information. Please try again later.');
         setLoading(false);
       }
     };
-
     fetchRecipeInfo();
-
   }, [id]);
 
   function extractRecipeDescription(summary) {

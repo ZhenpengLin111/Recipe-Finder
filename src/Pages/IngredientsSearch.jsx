@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import "../Styles/IngredientsSearch.css"
 import pic23 from "../assets/pic23.jpg";
 import { Helmet } from 'react-helmet';
 import Footer from '../Component/Footer';
+import { fetchRecipesByIngredientsAPI } from '../apis/recipes';
 
 const IngredientsSearch = () => {
     const [ingredients, setIngredients] = useState('');
@@ -25,14 +25,8 @@ const IngredientsSearch = () => {
     const handleSearch = async () => {
         if (ingredients) {
             try {
-                const api_key = "4f630803698b4cbd930e7660732d2328";
-                const response = await axios.get('https://api.spoonacular.com/recipes/findByIngredients', {
-                    params: {
-                        ingredients,
-                        apiKey: api_key,
-                    },
-                });
-                setRecipes(response.data);
+                const res = await fetchRecipesByIngredientsAPI(ingredients)
+                setRecipes(res.data);
                 showResults();
             } catch (error) {
                 setError('Failed to fetch recipes. Please try again later.');
