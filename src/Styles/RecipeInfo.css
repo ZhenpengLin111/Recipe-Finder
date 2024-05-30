@@ -194,6 +194,12 @@
     padding: 0px 30px;
 }
 
+.RecipeInfo-steps ul {
+    list-style: none;
+    margin-block-start: 0em;
+    padding-inline-start: 0px;
+}
+
 .RecipeInfo-steps h2 {
     font-size: 2.2em;
 }

@@ -59,13 +59,13 @@ function RecipeInfo() {
     return description.trim();
   }
   const recipeDescription = recipeInfo ? extractRecipeDescription(recipeInfo.summary) : '';
-  console.log(recipeDescription);
+  // console.log(recipeDescription);
 
   const nutrientData = nutrients?.nutrients
     ?.filter(nutrient => nutrient.name === 'Fat' || nutrient.name === 'Calories' || nutrient.name === 'Carbohydrates' || nutrient.name === 'Protein')
     ?.map((nutrient) => nutrient.amount);
 
-  console.log(nutrientData);
+  // console.log(nutrientData);
 
 
   const chartData = {
@@ -77,8 +77,6 @@ function RecipeInfo() {
       },
     ],
   };
-
-
 
 
   if (loading) {
@@ -160,12 +158,14 @@ function RecipeInfo() {
           {recipeInfo.analyzedInstructions.map((instructionObject, index) => (
             <li key={index} className='Instructions'>
               <h4>{instructionObject.name}</h4>
-              {instructionObject.steps.map((step, stepIndex) => (
-                <li className='RecipeInfo-step' key={stepIndex}>
-                  <span>Step {stepIndex + 1}</span>
-                  <p>{step.step}</p>
-                </li>
-              ))}
+              <ul>
+                {instructionObject.steps.map((step, stepIndex) => (
+                  <li className='RecipeInfo-step' key={stepIndex}>
+                    <span>Step {stepIndex + 1}</span>
+                    <p>{step.step}</p>
+                  </li>
+                ))}
+              </ul>
             </li>
           ))}
         </ul>

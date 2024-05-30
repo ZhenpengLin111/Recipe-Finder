@@ -176,7 +176,6 @@ function NutrientsSearch() {
             {error && <p>{error}</p>}
             {recipes.map((recipe, index) => (
               <Link key={recipe.id} to={`/recipe-info/${recipe.id}`} className="recipe-item">
-                {console.log(recipe.id)}
                 <div className='recipe-img'>
                   <img src={recipe.image} alt={recipe.title} />
                 </div>
