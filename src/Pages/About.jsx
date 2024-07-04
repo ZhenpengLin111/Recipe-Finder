@@ -28,12 +28,16 @@ import pic21 from "../assets/pic21.jpg";
 
 
 function About() {
+    // Array for images
+    const slide_track1_imgs = [pic1, pic2, pic3, pic4, pic5, pic6]
+    const slide_track2_imgs = [pic7, pic8, pic9, pic10, pic11, pic12]
+
+    // Visibilities of sections
     const [isSection1Visible, setIsSection1Visible] = useState(false);
     const [isSection2Visible, setIsSection2Visible] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
-            // console.log("functon called")
             const nutrient_section = document.querySelector('.nutrient-section');
             if (nutrient_section) {
                 const sectionTop = nutrient_section.getBoundingClientRect().top;
@@ -48,7 +52,6 @@ function About() {
 
     useEffect(() => {
         const handleScroll = () => {
-            // console.log("functon2 called")
             const ingredient_section = document.querySelector('.ingredient-section');
             if (ingredient_section) {
                 const sectionTop = ingredient_section.getBoundingClientRect().top;
@@ -90,83 +93,26 @@ function About() {
                 </div>
                 <div className="slider">
                     <div className="slide-track1">
-                        <div className="slide">
-                            <img src={pic1} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic2} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic3} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic4} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic5} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic6} alt="" />
-                        </div>
-
-                        <div className="slide">
-                            <img src={pic1} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic2} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic3} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic4} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic5} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic6} alt="" />
-                        </div>
+                        {slide_track1_imgs.map((img, index) =>
+                            <div className="slide" key={index}>
+                                <img src={(img)} alt="" />
+                            </div>)}
+                        {slide_track1_imgs.map((img, index) =>
+                            <div className="slide" key={index}>
+                                <img src={(img)} alt="" />
+                            </div>)}
                     </div>
-
                     <div className="slide-track2">
-                        <div className="slide">
-                            <img src={pic7} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic8} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic9} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic10} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic11} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic12} alt="" />
-                        </div>
-
-                        <div className="slide">
-                            <img src={pic7} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic8} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic9} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic10} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic11} alt="" />
-                        </div>
-                        <div className="slide">
-                            <img src={pic12} alt="" />
-                        </div>
+                        {slide_track2_imgs.map((img, index) =>
+                            <div className="slide" key={index}>
+                                <img src={img} alt="" />
+                            </div>)
+                        }
+                        {slide_track2_imgs.map((img, index) =>
+                            <div className="slide" key={index}>
+                                <img src={img} alt="" />
+                            </div>)
+                        }
                     </div>
                 </div>
             </div>
