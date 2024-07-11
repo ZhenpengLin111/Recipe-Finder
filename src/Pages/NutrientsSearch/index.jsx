@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { Link } from 'react-router-dom';
-import Footer from '../Component/Footer';
-import "../Styles/NutrientsSearch.css";
+import Footer from '../../Component/Footer';
+import './index.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFire } from '@fortawesome/free-solid-svg-icons';
-import pic22 from "../assets/pic22.jpg";
-import { fetchRecipesByNutrientsAPI } from '../apis/recipes';
+import pic22 from "../../assets/pic22.jpg";
+import { fetchRecipesByNutrientsAPI } from '../../apis/recipes';
 
 function NutrientsSearch() {
   const [recipes, setRecipes] = useState([]);

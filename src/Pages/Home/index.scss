@@ -1,0 +1,423 @@
+.About {
+  width: 100%;
+  height: 100vh;
+  color: white;
+}
+
+.first-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
+
+.slider {
+  height: 100vh;
+  margin: auto;
+  position: relative;
+  width: 50%;
+  display: flex;
+  place-items: center;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInFromBottom .8s ease-out forwards;
+  animation-delay: 1s;
+}
+
+.slide-track1 {
+  display: flex;
+  flex-direction: column;
+  height: calc(250px * 12);
+  animation: scroll 40s linear infinite;
+}
+
+.slide-track2 {
+  display: flex;
+  flex-direction: column;
+  height: calc(250px * 12);
+  animation: scroll2 40s linear infinite;
+}
+
+.slide-track1:hover,
+.slide-track2:hover {
+  animation-play-state: paused;
+}
+
+.slide {
+  height: 250px;
+  width: 90%;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  perspective: 150px;
+  border-radius: 15px;
+}
+
+.slide img {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: transform 1s;
+}
+
+.slide img:hover {
+  transform: translateZ(20px);
+}
+
+.intro {
+  width: 40%;
+  padding-left: 80px;
+}
+
+.first-page h1 {
+  color:blanchedalmond;
+  opacity: 0;
+  transform: translateY(50px);
+  font-size: 3em;
+  animation: fadeInFromBottom .8s ease-out forwards;
+  animation-delay: .2s;
+}
+
+.first-page p {
+  font-size: 1.2em;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInFromBottom .8s ease-out forwards;
+  animation-delay: .4s;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.button {
+  width: 250px;
+  height: 50px;
+  font-size: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+}
+
+.nutrient-search-button {
+  border-radius: 20px;
+  background-color: bisque;
+  transition: 1s ease;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInFromBottom .8s ease-out forwards;
+  animation-delay: .6s;
+}
+
+.nutrient-search-button:hover {
+  background-color: white;
+}
+
+.nutrient-search-button a {
+  color: black;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ingredient-search-button {
+  width: 300px;
+  margin-left: 20px;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInFromBottom .8s ease-out forwards;
+  animation-delay: .8s;
+}
+
+.ingredient-search-button a {
+  width: 100%;
+  color:bisque;
+  padding: 10px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.arrowRight {
+  font-size: 40px;
+}
+
+.second-page {
+  background-color: black;
+}
+
+.second-page {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nutrient-section {
+  opacity: 0;
+  display: grid;
+  width: 80vw;
+  transform: translateY(150px);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.nutrient-section.fade-in {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+
+.nutrient-section-info {
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.nutrient-section-info.fade-in1 {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInFromBottom .8s ease-out forwards;
+  animation-delay: .2s;
+}
+
+.pic15.fade-in2 {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInFromBottom .8s ease-out forwards;
+  animation-delay: .4s;
+}
+
+.pic14.fade-in3 {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInFromBottom .8s ease-out forwards;
+  animation-delay: .6s;
+}
+
+.pic13.fade-in4 {
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fadeInFromBottom .8s ease-out forwards;
+  animation-delay: .8s;
+}
+
+.second-page h1 {
+  font-size: 2.5em;
+  color: blanchedalmond;
+}
+
+.second-page p {
+  font-size: 1.2em;
+}
+
+.nutrient-section-photos {
+  grid-column-gap: 20px;
+  grid-row-gap: 0px;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr ;
+  grid-auto-columns: 1fr;
+  display: grid;
+}
+
+.photos-left {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.photos-left img {
+  width: 100%;
+}
+
+.photos-right {
+  width: 100%;
+  height: 100%;
+}
+
+.photos-right img {
+  width: 100%;
+  height: 100%;
+}
+
+.ingredient-section {
+  opacity: 0;
+  margin-top: 50px;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transform: translateX(-150px);
+  transition: all 1s ease;
+}
+
+.ingredient-section.fade-in-left {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.ingredient-section-info {
+  opacity: 0;
+  width: 40%;
+  z-index: 3;
+  transform: translateY(-150px);
+  transition: all 1s ease;
+}
+
+.ingredient-section-info.fade-in-top {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+.ingredient-section img {
+  width: 300px;
+  height: 200px;
+}
+
+
+.pic16 {
+  position: absolute;
+  left: 10%;
+  top: 10%;
+  z-index: 2;
+}
+
+.pic17 {
+  position: absolute;
+  left: 5%;
+  top: 35%;
+}
+
+.pic18 {
+  position: absolute;
+  left: 15%;
+  top: 65%;
+}
+
+.pic19 {
+  position: absolute;
+  right: 15%;
+  top: 10%;
+}
+
+.pic20 {
+  position: absolute;
+  right: 20%;
+  top: 35%;
+}
+
+.pic21 {
+  position: absolute;
+  right: 10%;
+  top: 60%;
+}
+
+
+
+
+
+@keyframes scroll {
+  0% {
+      transform: translateY(0);
+  }
+  100% {
+      transform: translateY(calc(-250px * 5));
+  }
+  
+}
+
+@keyframes scroll2 {
+  0% {
+      transform: translateY(0);
+  }
+  100% {
+      transform: translateY(calc(250px * 5));
+  }
+  
+}
+
+
+@keyframes fadeInFromBottom {
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@media (max-width: 911px) {
+  .intro {
+      padding-left: 40px;
+  }
+  .buttons {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .ingredient-search-button {
+      margin-top: 10px;
+      margin-left: 0;
+  }
+
+  .nutrient-section-info p {
+      margin-left: 20px;
+  }
+}
+
+@media (max-width: 541px) {
+  .About {
+      text-align: center;
+  }
+  .first-page {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+  }
+
+  .intro {
+      margin-top: 80px;
+      width: 90%;
+      padding-left: 0;
+  }
+
+  .buttons {
+      align-items: center;
+  }
+
+  .slider {
+      margin-top: 50px;
+      width: 90%;
+      height: 50vh;
+  }
+
+  .nutrient-section-info {
+      display: flex;
+      flex-direction: column;
+  }
+
+  .ingredient-section {
+      margin-top: 100px;
+  }
+
+  .ingredient-section-info {
+      width: 90%;
+  }
+
+  .nutrient-section-info p {
+      margin-left: 0;
+  }
+  
+}

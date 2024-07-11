@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import "../Styles/IngredientsSearch.css"
-import pic23 from "../assets/pic23.jpg";
+import './index.scss'
+import pic23 from "../../assets/pic23.jpg";
 import { Helmet } from 'react-helmet';
-import Footer from '../Component/Footer';
-import { fetchRecipesByIngredientsAPI } from '../apis/recipes';
+import Footer from '../../Component/Footer';
+import { fetchRecipesByIngredientsAPI } from '../../apis/recipes';
 
 const IngredientsSearch = () => {
     const [ingredients, setIngredients] = useState('');

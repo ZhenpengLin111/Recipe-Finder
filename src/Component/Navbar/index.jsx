@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import "../Styles/Navbar.css"
+import "./index.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils } from '@fortawesome/free-solid-svg-icons';
 
@@ -44,9 +44,9 @@ function Navbar() {
                 <span className='nav-icon'></span>
             </label>
             <ul className='nav-2'>
-                <li><Link to="/" onClick={handleLinkClick}>About</Link></li>
-                <li><Link to="/NutrientsSearch" onClick={handleLinkClick}>Search by Nutrients</Link></li>
-                <li><Link to="/IngredientsSearch" onClick={handleLinkClick}>Search by Ingredients</Link></li>
+                <li><Link to="/" onClick={handleLinkClick}>Home</Link></li>
+                <li><Link to="/nutrientsSearch" onClick={handleLinkClick}>Search by Nutrients</Link></li>
+                <li><Link to="/ingredientsSearch" onClick={handleLinkClick}>Search by Ingredients</Link></li>
             </ul>
         </nav>
     )

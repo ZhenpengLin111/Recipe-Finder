@@ -1,33 +1,33 @@
-import "../Styles/About.css";
+import './index.scss'
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import Footer from "../Component/Footer";
+import Footer from '../../Component/Footer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
-import pic1 from "../assets/pic1.jpg";
-import pic2 from "../assets/pic2.jpg";
-import pic3 from "../assets/pic3.jpg";
-import pic4 from "../assets/pic4.jpg";
-import pic5 from "../assets/pic5.jpg";
-import pic6 from "../assets/pic6.jpg";
-import pic7 from "../assets/pic7.jpg";
-import pic8 from "../assets/pic8.jpg";
-import pic9 from "../assets/pic9.jpg";
-import pic10 from "../assets/pic10.jpg";
-import pic11 from "../assets/pic11.jpg";
-import pic12 from "../assets/pic12.jpg";
-import pic13 from "../assets/pic13.jpg";
-import pic14 from "../assets/pic14.jpg";
-import pic15 from "../assets/pic15.jpg";
-import pic16 from "../assets/pic16.jpg";
-import pic17 from "../assets/pic17.jpg";
-import pic18 from "../assets/pic18.jpg";
-import pic19 from "../assets/pic19.jpg";
-import pic20 from "../assets/pic20.jpg";
-import pic21 from "../assets/pic21.jpg";
+import pic1 from "../../assets/pic1.jpg";
+import pic2 from "../../assets/pic2.jpg";
+import pic3 from "../../assets/pic3.jpg";
+import pic4 from "../../assets/pic4.jpg";
+import pic5 from "../../assets/pic5.jpg";
+import pic6 from "../../assets/pic6.jpg";
+import pic7 from "../../assets/pic7.jpg";
+import pic8 from "../../assets/pic8.jpg";
+import pic9 from "../../assets/pic9.jpg";
+import pic10 from "../../assets/pic10.jpg";
+import pic11 from "../../assets/pic11.jpg";
+import pic12 from "../../assets/pic12.jpg";
+import pic13 from "../../assets/pic13.jpg";
+import pic14 from "../../assets/pic14.jpg";
+import pic15 from "../../assets/pic15.jpg";
+import pic16 from "../../assets/pic16.jpg";
+import pic17 from "../../assets/pic17.jpg";
+import pic18 from "../../assets/pic18.jpg";
+import pic19 from "../../assets/pic19.jpg";
+import pic20 from "../../assets/pic20.jpg";
+import pic21 from "../../assets/pic21.jpg";
 
 
-function About() {
+function Home() {
     // Array for images
     const slide_track1_imgs = [pic1, pic2, pic3, pic4, pic5, pic6]
     const slide_track2_imgs = [pic7, pic8, pic9, pic10, pic11, pic12]
@@ -157,4 +157,4 @@ function About() {
     )
 }
 
-export default About;
+export default Home;

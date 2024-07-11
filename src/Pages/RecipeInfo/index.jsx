@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import "../Styles/RecipeInfo.css";
+import "./index.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFireBurner } from '@fortawesome/free-solid-svg-icons';
 import { faPerson } from '@fortawesome/free-solid-svg-icons';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
-import Footer from '../Component/Footer';
-import { fetchNutrientsInfoAPI, fetchRecipeInfoAPI } from '../apis/recipes';
+import Footer from '../../Component/Footer';
+import { fetchNutrientsInfoAPI, fetchRecipeInfoAPI } from '../../apis/recipes';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -131,7 +131,7 @@ function RecipeInfo() {
             {nutrients?.nutrients
               .filter(nutrient => nutrient.name === 'Fat' || nutrient.name === 'Calories' || nutrient.name === 'Carbohydrates' || nutrient.name === 'Protein')
               .map((nutrient, index) => (
-                <li className='RecipeInfo-nutrient' key={{ index }}>
+                <li className='RecipeInfo-nutrient' key={index}>
                   <span>{nutrient.name}:</span>
                   <span>{nutrient.amount} {nutrient.unit}</span>
                 </li>
