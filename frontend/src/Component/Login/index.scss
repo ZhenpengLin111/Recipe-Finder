@@ -1,0 +1,40 @@
+.login {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .email-label {
+    width: 400px;
+    margin-bottom: 5px;
+  }
+
+  .password-label {
+    width: 400px;
+    margin-bottom: 5px;
+  }
+
+  .iptbtn {
+    margin-bottom: 20px;
+    width: 400px;
+  }
+
+  .loginbtn {
+    width: 400px;
+    height: 50px;
+    background-color: black;
+  }
+
+  .loginbtn:hover {
+    background-color: #455d7a;
+  }
+}

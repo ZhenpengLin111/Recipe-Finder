@@ -1,0 +1,51 @@
+.landing {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .landing-background {
+    width: 50%;
+    height: 100%;
+    background: url('../../assets/landing-background.jpg');
+    background-position: center;
+    background-size: cover;
+  }
+
+  .login-register {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+  }
+
+  .register-text,
+  .login-text {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+
+    p {
+      color: gray;
+    }
+  }
+
+  .app-logo {
+    font-size: 40px;
+    position: absolute;
+    top: 5%;
+    left: 5%;
+  }
+
+  .backBtn {
+    position: absolute;
+    right: 55%;
+    top: 5%;
+  }
+}
