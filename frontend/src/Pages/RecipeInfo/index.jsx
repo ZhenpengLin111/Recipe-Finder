@@ -1,6 +1,6 @@
 // RecipeInfo.js
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import "./index.scss";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,7 +11,12 @@ import { Doughnut } from "react-chartjs-2";
 import Footer from '../../Component/Footer';
 import { fetchNutrientsInfoAPI, fetchRecipeInfoAPI } from '../../apis/recipes';
 import * as jwt_decode from 'jwt-decode'
-import { savedRecipe, updateUser } from '../../apis/users';
+import { deleteRecipe, getRecipes, savedRecipe } from '../../apis/users';
+import Checkbox from '@mui/material/Checkbox';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import IconButton from '@mui/material/IconButton';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -23,6 +28,9 @@ function RecipeInfo() {
   const [error, setError] = useState('');
   const [user, setUser] = useState({})
   const [view, setView] = useState(false)
+  const [check, setCheck] = useState(false)
+  
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Get nutrients info for chart
@@ -87,6 +95,7 @@ function RecipeInfo() {
       const token = sessionStorage.getItem('User')
       if (token) {
         const decodeUser = jwt_decode.jwtDecode(token)
+        console.log(decodeUser)
         setUser(decodeUser)
         setView(true)
       } else {
@@ -96,18 +105,37 @@ function RecipeInfo() {
     checkUser()
   }, [])
 
+  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
   // save recipt to the user
   async function handleCheck(e) {
     if (e.target.checked) {
+      setCheck(true)
       const recipe = {
         recipeId: id,
         user: '',
-        date: new Date()
+        dateSaved: new Date()
       }
-      await savedRecipe(recipe)
+      const res = await savedRecipe(recipe)
+    } else {
+      setCheck(false)
+      const res = await deleteRecipe(id)
     }
   }
 
+
+
+  useEffect(() => {
+    // Check if recipe is already saved
+    async function checkRecipe() {
+      const res = await getRecipes()
+      if (res.data.message) return
+      const recipeSaved = res.data.find((recipe) => recipe.recipeId === id && recipe.user === user._id)
+      if (recipeSaved) {
+        setCheck(true)
+      }
+    }
+    checkRecipe()
+  }, [id, user._id])
 
   if (loading) {
     return <p>Loading...</p>;
@@ -128,6 +156,9 @@ function RecipeInfo() {
       </Helmet>
       <div className='RecipeInfo-container'>
         <div className='RecipeInfo-main'>
+          <IconButton size="large" aria-label="back" className="backBtn" onClick={() => navigate(-1)}>
+            <ArrowBackIcon />
+          </IconButton>
           <img src={recipeInfo.image} alt={recipeInfo.title} />
           <div className='RecipeInfo-left'>
             <div className='RecipeInfo-top'>
@@ -145,7 +176,17 @@ function RecipeInfo() {
                   <span><span>{recipeInfo.servings}</span>Persons</span>
                 </p>
               </div>
-              {view ? <input type="checkbox" onChange={handleCheck} /> : null}
+              {view &&
+                <Checkbox
+                  checked={check}
+                  className='saveRecipt-checkbox'
+                  sx={{ backgroundColor: 'white' }}
+                  onChange={handleCheck}
+                  {...label}
+                  icon={<BookmarkBorderIcon />}
+                  checkedIcon={<BookmarkIcon />}
+                />
+              }
             </div>
             <h1>{recipeInfo.title}</h1>
             <p className='RecipeDescription'>{recipeDescription}</p>

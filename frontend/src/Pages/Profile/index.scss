@@ -1,3 +1,162 @@
 .profile {
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh;
+  height: auto;
+  background-image: linear-gradient(to right, rgba(225, 92, 99), rgba(195, 113, 197), rgba(89, 186, 225));
+
+  .profile-details {
+    margin-top: 150px;
+    display: flex;
+    width: 1000px;
+    height: 450px;
+    justify-content: space-around;
+
+    .profile-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 35%;
+      height: 100%;
+      border-right: 1px solid gray;
+      background-color: rgba(55, 55, 55);
+      border-radius: 20px;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInFromBottom .8s ease-out forwards;
+      animation-delay: .2s;
+
+      h2 {
+        background: linear-gradient(to right, rgba(182, 61, 172), rgba(227, 176, 90));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-top: 50px;
+      }
+
+      img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 50%;
+        box-shadow: black 0px 20px 30px -10px;
+      }
+    }
+
+    .profile-right {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 60%;
+      height: 100%;
+      background-color: rgba(55, 55, 55);
+      border-radius: 20px;
+      text-align: left;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInFromBottom .8s ease-out forwards;
+      animation-delay: .4s;
+
+      .editBtn {
+        position: absolute;
+        right: 9%;
+        top: 9%;
+      }
+
+      h1 {
+        background: linear-gradient(to right, rgba(226, 119, 184), rgba(227, 166, 139));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-top: 50px;
+        margin-bottom: 70px;
+      }
+
+      div {
+        width: 60%;
+        margin-bottom: 25px;
+        display: flex;
+        font-size: 1.1em;
+
+        label {
+          font-weight: 700;
+          width: 40%;
+        }
+
+        span {
+          width: 60%;
+          color: rgba(208, 208, 208)
+        }
+      }
+    }
+  }
+
+  .savedRecipes-txt {
+    // background: linear-gradient(to right, #2E3192, #1BFFFF);
+    // -webkit-background-clip: text;
+    // background-clip: text;
+    // -webkit-text-fill-color: transparent;
+    margin-top: 50px;
+    width: 900px;
+  }
+
+  .toggle-savedRecipes-btn,
+  .savedRecipes-txt {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInFromBottom .8s ease-out forwards;
+    animation-delay: .6s;
+  }
+
+  .savedRecipes {
+    opacity: 0;
+    width: 900px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    transition: opacity 0.3s ease-in-out;
+
+    .recipe-item {
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.5);
+      border-radius: 15px;
+      width: 48%;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      text-decoration: none;
+
+      h2 {
+        margin-bottom: 20px;
+      }
+
+      .delBtn {
+        position: absolute;
+        right: 2%;
+        top: 2%;
+        z-index: 5;
+      }
+    }
+  }
+
+  .savedRecipes.show {
+    opacity: 1;
+    transform: translateY(-5px);
+    animation: fadeInTop .3s ease-in-out forwards;
+  }
+
+}
+
+@keyframes fadeInTop {
+  to {
+    transform: translateY(0);
+  }
 }

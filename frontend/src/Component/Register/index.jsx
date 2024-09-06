@@ -11,18 +11,26 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
 import './index.scss'
+import { UploadFile } from "../UploadFile";
 
 export function Register({ onGetMsg, onLogin }) {
   const [user, setUser] = useState({
     username: '',
+    age: '',
     email: '',
-    password: ''
+    password: '',
+    phone: '',
+    file: ''
   })
   const [helperText1, setHelperText1] = useState('')
   const [helperText2, setHelperText2] = useState('')
+  const [helperText3, setHelperText3] = useState('')
+  const [helperText4, setHelperText4] = useState('')
   const [emailError, setEmailError] = useState(false)
+  const [ageError, setAgeError] = useState(false)
   const [usernameError, setUsernameError] = useState(false)
   const [passwordError, setPasswordError] = useState(false)
+  const [phoneError, setPhoneError] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -41,6 +49,18 @@ export function Register({ onGetMsg, onLogin }) {
     }
   }
 
+  const ageRegex = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/;
+  const checkAgeInput = (e) => {
+    if (!ageRegex.test(e.target.value)) {
+      setAgeError(true)
+      setHelperText4('Age is invaild!')
+    }
+    else {
+      setAgeError(false)
+      setHelperText4('')
+    }
+  }
+
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const checkEmailInput = (e) => {
     if (!emailRegex.test(e.target.value)) {
@@ -50,6 +70,18 @@ export function Register({ onGetMsg, onLogin }) {
     else {
       setEmailError(false)
       setHelperText1('')
+    }
+  }
+
+  const phoneRegex = /^(\+?\d{1,2}\s?)?(\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/
+  const checkPhoneInput = (e) => {
+    if (!phoneRegex.test(e.target.value)) {
+      setPhoneError(true)
+      setHelperText3('Please enter an vaild phone number!')
+    }
+    else {
+      setPhoneError(false)
+      setHelperText3('')
     }
   }
 
@@ -67,6 +99,9 @@ export function Register({ onGetMsg, onLogin }) {
     }
   }
 
+  function handleFile(file) {
+    setUser({ ...user, file: file })
+  }
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -76,8 +111,11 @@ export function Register({ onGetMsg, onLogin }) {
       onGetMsg('Account has been created, please login in.')
       setUser({
         username: '',
+        age: '',
         email: '',
-        password: ''
+        password: '',
+        phone: '',
+        file: ''
       })
       onLogin(true)
     } else {
@@ -91,10 +129,6 @@ export function Register({ onGetMsg, onLogin }) {
   return (
     <form onSubmit={handleSubmit}>
       <h1>Sign Up</h1>
-      {/* <input name="username" required placeholder="Please Enter Username" onChange={handleChange} maxLength={20}/>
-    <input name="email" required placeholder="Please Enter Email" onChange={handleChange} maxLength={20}/>
-    <input name="password" required placeholder="Please Enter password" onChange={handleChange} maxLength={20}/>
-    <button type="sumbit">Register</button> */}
       <label className="username-label">Username:</label>
       <TextField
         className="iptbtn"
@@ -147,6 +181,33 @@ export function Register({ onGetMsg, onLogin }) {
         />
         <FormHelperText id="my-helper-text" error={passwordError} ref={helperTextRef}></FormHelperText>
       </FormControl>
+      <label className="age-label">Age:</label>
+      <TextField
+        className="iptbtn"
+        id="outlined-basicc"
+        label="Age"
+        variant="outlined"
+        onChange={handleChange}
+        onBlur={checkAgeInput}
+        error={ageError}
+        helperText={helperText4}
+        name="age"
+        required
+      />
+      <label className="phone-label">Phone:</label>
+      <TextField
+        className="iptbtn"
+        id="outlined-basicss"
+        label="Phone"
+        variant="outlined"
+        onChange={handleChange}
+        onBlur={checkPhoneInput}
+        error={phoneError}
+        helperText={helperText3}
+        name="phone"
+        required
+      />
+      <UploadFile onFile={handleFile} />
       <Button type="submit" className="loginbtn" variant="contained">Register</Button>
     </form>
   )

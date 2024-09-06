@@ -64,10 +64,12 @@ userRoutes.route('/users').post(async (req, res) => {
     // new user object adding to mongodb
     let mongoObject = {
       username: req.body.username,
+      age: req.body.age,
       email: req.body.email,
       password: hash,
       joinDate: new Date(),
-      savedRecipes: []
+      phone: req.body.phone,
+      profileImgId: req.body.profileImgId
     }
 
     // insert new user
@@ -84,10 +86,12 @@ userRoutes.route('/users/:id').put(async (req, res) => {
   let mongoObject = {
     $set: {
       username: req.body.username,
+      age: req.body.age,
       email: req.body.email,
       password: req.body.password,
       joinDate: req.body.joinDate,
-      savedRecipes: req.body.savedRecipes
+      phone: req.body.phone,
+      profileImgId: req.body.profileImgId
     }
   }
 

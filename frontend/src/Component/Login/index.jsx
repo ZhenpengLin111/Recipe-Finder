@@ -45,6 +45,10 @@ export function Login({ onGetLoading, onGetMsg }) {
       setTimeout(() => {
         navigate('/')
       }, 2000)
+      setUser({
+        email: '',
+        password: ''
+      })
     } else {
       onGetMsg(res.message)
     }

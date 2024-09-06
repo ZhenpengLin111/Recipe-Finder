@@ -1,15 +1,53 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./index.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUtensils } from '@fortawesome/free-solid-svg-icons';
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import Logout from '@mui/icons-material/Logout';
+import * as jwt_decode from 'jwt-decode'
 
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isTransparent, setIsTransparent] = useState(true);
-    
-    
+    const [user, setUser] = useState()
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        async function loadUserData() {
+            const token = sessionStorage.getItem('User')
+            if (token) {
+                const decodeUser = jwt_decode.jwtDecode(token)
+                setUser(decodeUser)
+            }
+        }
+        loadUserData()
+    }, [])
+
+    function logOut() {
+        sessionStorage.removeItem('User')
+        setUser()
+        navigate('/')
+    }
+
+    // For the user menu
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
     useEffect(() => {
         // function to set visibility of navbar while scrolling
         const handleScroll = () => {
@@ -26,7 +64,7 @@ function Navbar() {
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
-    },[]);
+    }, []);
 
     const handleLinkClick = () => {
         setMenuOpen(false);
@@ -35,10 +73,76 @@ function Navbar() {
         <nav className={`Navbar ${isTransparent ? '' : 'NotTransparent'}`}>
             <div className="nav1">
                 <div className='left-side'>
-                    <FontAwesomeIcon icon={faUtensils} className='Utensils'/>
+                    <FontAwesomeIcon icon={faUtensils} className='Utensils' />
                     <span>Recipe Finder</span>
                 </div>
             </div>
+            {!user ? <IconButton className='loginBtn' onClick={() => navigate('/landing')}>
+                LOGIN
+            </IconButton> :
+                <div>
+                    <Tooltip title="Account settings">
+                        <IconButton
+                            onClick={handleClick}
+                            size="small"
+                            sx={{ ml: 2 }}
+                            aria-controls={open ? 'account-menu' : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? 'true' : undefined}
+                        >
+                            <Avatar sx={{ width: 32, height: 32 }}>{user.username?.slice(0, 1)}</Avatar>
+                        </IconButton>
+                    </Tooltip>
+                    <Menu
+                        anchorEl={anchorEl}
+                        id="account-menu"
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                        PaperProps={{
+                            elevation: 0,
+                            sx: {
+                                overflow: 'visible',
+                                filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+                                mt: 1.5,
+                                '& .MuiAvatar-root': {
+                                    width: 32,
+                                    height: 32,
+                                    ml: -0.5,
+                                    mr: 1,
+                                },
+                                '&::before': {
+                                    content: '""',
+                                    display: 'block',
+                                    position: 'absolute',
+                                    top: 0,
+                                    right: 14,
+                                    width: 10,
+                                    height: 10,
+                                    bgcolor: 'background.paper',
+                                    transform: 'translateY(-50%) rotate(45deg)',
+                                    zIndex: 0,
+                                },
+                            },
+                        }}
+                        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    >
+                        <MenuItem className='menuItem' onClick={handleClose}>
+                            <Link to="/profile" >
+                                <Avatar /> Profile
+                            </Link>
+                        </MenuItem>
+                        <Divider />
+                        <MenuItem onClick={logOut}>
+                            <ListItemIcon>
+                                <Logout fontSize="small" />
+                            </ListItemIcon>
+                            Logout
+                        </MenuItem>
+                    </Menu>
+                </div>
+            }
             <input type='checkbox' className='menu-btn' id='menu-btn' checked={menuOpen} onChange={() => setMenuOpen(!menuOpen)} />
             <label htmlFor='menu-btn' className='menu-icon'>
                 <span className='nav-icon'></span>
@@ -47,8 +151,6 @@ function Navbar() {
                 <li><Link to="/" onClick={handleLinkClick}>Home</Link></li>
                 <li><Link to="/nutrientsSearch" onClick={handleLinkClick}>Search by Nutrients</Link></li>
                 <li><Link to="/ingredientsSearch" onClick={handleLinkClick}>Search by Ingredients</Link></li>
-                <li><Link to="/landing" onClick={handleLinkClick}>Login</Link></li>
-                <li><Link to="/profile" onClick={handleLinkClick}>Profile</Link></li>
             </ul>
         </nav>
     )

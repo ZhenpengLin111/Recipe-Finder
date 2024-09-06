@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   background-color: black;
   position: relative;
 }
@@ -34,12 +33,24 @@
 }
 
 .RecipeInfo-main {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
   width: 80vw;
   justify-content: space-between;
   z-index: 2;
+
+  .backBtn {
+    position: absolute;
+    top: 2%;
+    left: 2%;
+    color: white;
+  }
+
+  .backBtn:hover {
+    background-color: gray;
+  }
 }
 
 .RecipeInfo-left {
@@ -214,51 +225,55 @@
   color: gray;
 }
 
+.saveRecipt-checkbox:hover {
+  
+}
+
 @media (max-width: 1024px) {
   .RecipeInfo-container {
-      width: 90vw;
+    width: 90vw;
   }
 
   .RecipeInfo-main {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
   }
 
   .RecipeInfo-main img {
-      width: 100%;
-      margin-top: 0;
+    width: 100%;
+    margin-top: 0;
   }
 
   .RecipeInfo-left {
-      width: 100%;
+    width: 100%;
   }
 
   .RecipeInfo-nutrients-container {
-      width: 80%;
+    width: 80%;
   }
 }
 
 @media (max-width: 540px) {
   .RecipeInfo-main img {
-      height: 300px;
+    height: 300px;
   }
 
   .RecipeInfo-nutrients-container {
-      display: flex;
-      flex-direction: column;
+    display: flex;
+    flex-direction: column;
   }
 
   .RecipeInfo-nutrients {
-      width: 100%;
+    width: 100%;
   }
 
   .RecipeInfo-container {
-      margin-top: 100px;
+    margin-top: 100px;
   }
 
   .RecipeInfo-left h1 {
-      margin-top: 0;
+    margin-top: 0;
   }
 }

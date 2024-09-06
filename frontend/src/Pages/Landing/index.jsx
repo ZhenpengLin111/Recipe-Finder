@@ -1,6 +1,6 @@
 import { Login } from "../../Component/Login"
 import { Register } from "../../Component/Register"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';

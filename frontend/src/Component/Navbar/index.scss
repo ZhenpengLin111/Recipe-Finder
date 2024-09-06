@@ -6,6 +6,10 @@
   align-items: center;
   z-index: 1000;
   transition: background-color .3s ease;
+
+  .loginBtn {
+    color: white;
+  }
 }
 
 .Navbar.NotTransparent {
@@ -139,6 +143,14 @@
 .menu-btn:checked~.nav-2 {
   display: flex;
   padding-left: 0;
+}
+
+.menuItem a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-decoration: none;
+  color: black;
 }
 
 

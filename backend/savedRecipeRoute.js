@@ -25,7 +25,8 @@ savedRecipeRoute.route('/savedRecipes').get(verifyToken, async (req, res) => {
     //send the data in json format to the frontend
     res.json(data)
   } else {
-    throw new Error('Data was not found :(')
+    res.json({message: 'Data was not found :('})
+    // throw new Error('Data was not found :(')
     // if not catch block, the server will stop running if error happens
   }
 })
@@ -69,7 +70,9 @@ savedRecipeRoute.route('/savedRecipes/:id').delete(verifyToken, async (req, res)
   let db = database.getDb()
 
   // delete the post, provide the id to find the post
-  let data = await db.collection('savedRecipes').deleteOne({ _id: new ObjectId(req.params.id) })
+  console.log(req.params.id, req.body.user._id)
+  let data = await db.collection('savedRecipes').deleteOne({ recipeId: req.params.id }, {user: req.body.user._id})
+  console.log(data)
   res.json(data)
 })
 
