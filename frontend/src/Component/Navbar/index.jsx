@@ -11,30 +11,21 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
-import * as jwt_decode from 'jwt-decode'
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUserInfo } from '../../store/modules/user';
 
 
 function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [isTransparent, setIsTransparent] = useState(true);
-    const [user, setUser] = useState()
 
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-    useEffect(() => {
-        async function loadUserData() {
-            const token = sessionStorage.getItem('User')
-            if (token) {
-                const decodeUser = jwt_decode.jwtDecode(token)
-                setUser(decodeUser)
-            }
-        }
-        loadUserData()
-    }, [])
+    const username = useSelector(state => state.user.userInfo.username || '')
 
     function logOut() {
-        sessionStorage.removeItem('User')
-        setUser()
+        dispatch(clearUserInfo())
         navigate('/')
     }
 
@@ -77,7 +68,7 @@ function Navbar() {
                     <span>Recipe Finder</span>
                 </div>
             </div>
-            {!user ? <IconButton className='loginBtn' onClick={() => navigate('/landing')}>
+            {!username ? <IconButton className='loginBtn' onClick={() => navigate('/landing')}>
                 LOGIN
             </IconButton> :
                 <div>
@@ -90,7 +81,7 @@ function Navbar() {
                             aria-haspopup="true"
                             aria-expanded={open ? 'true' : undefined}
                         >
-                            <Avatar sx={{ width: 32, height: 32 }}>{user.username?.slice(0, 1)}</Avatar>
+                            <Avatar sx={{ width: 32, height: 32 }}>{username?.slice(0, 1)}</Avatar>
                         </IconButton>
                     </Tooltip>
                     <Menu

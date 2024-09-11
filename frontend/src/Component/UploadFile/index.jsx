@@ -61,7 +61,7 @@ export function UploadFile({onFile}) {
   }
 
   return (
-    <>
+    <div className='upload-file'>
       <label className="profileImg-label">Profile Image:</label>
       <div className="select-file">
         <IconButton aria-label="add-image" className="profileImg-btn">
@@ -77,6 +77,6 @@ export function UploadFile({onFile}) {
           </div>
         }
       </div>
-    </>
+    </div>
   )
 }

@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react"
-import { getImage, getRecipes, updateUser } from "../../apis/users"
-import * as jwt_decode from 'jwt-decode'
+import { useEffect, useRef, useState } from "react"
+import { getRecipes, updateUser } from "../../apis/users"
 import './index.scss'
 import { fetchRecipeByIdsAPI } from "../../apis/recipes"
 import { Link } from "react-router-dom"
@@ -16,7 +15,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
-import { UploadFile } from "../../Component/UploadFile"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchUserInfo } from "../../store/modules/user"
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import TextField from '@mui/material/TextField';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -27,12 +29,133 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+
 export function Profile() {
-  const [user, setUser] = useState({})
+  const userData = useSelector(state => state.user.userInfo)
+  const [user, setUser] = useState(userData || {})
   const [recipes, setRecipes] = useState([])
   const [show, setShow] = useState(true)
   // dialog for editing user info
   const [open, setOpen] = useState(false);
+  const [openRecipes, setOpenRecipes] = useState(false);
+  const [helperText1, setHelperText1] = useState('') // email
+  const [helperText2, setHelperText2] = useState('') // username
+  const [helperText3, setHelperText3] = useState('') // phone
+  const [helperText4, setHelperText4] = useState('') // age
+  const [emailError, setEmailError] = useState(false)
+  const [ageError, setAgeError] = useState(false)
+  const [usernameError, setUsernameError] = useState(false)
+  const [phoneError, setPhoneError] = useState(false)
+
+  const [selectedFile, setSelectedFile] = useState()
+  const [preview, setPreview] = useState()
+
+  const usernameRegex = /^.{4,15}$/
+  const checkUsernameInput = (e) => {
+    if (!usernameRegex.test(e.target.value)) {
+      setUsernameError(true)
+      setHelperText2('Username must be 5 and 15 characters!')
+    }
+    else {
+      setUsernameError(false)
+      setHelperText2('')
+    }
+  }
+
+  const ageRegex = /^(?:[1-9][0-9]?|1[01][0-9]|120)$/;
+  const checkAgeInput = (e) => {
+    if (!ageRegex.test(e.target.value)) {
+      setAgeError(true)
+      setHelperText4('Age is invaild!')
+    }
+    else {
+      setAgeError(false)
+      setHelperText4('')
+    }
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const checkEmailInput = (e) => {
+    if (!emailRegex.test(e.target.value)) {
+      setEmailError(true)
+      setHelperText1('Please enter an vaild email!')
+    }
+    else {
+      setEmailError(false)
+      setHelperText1('')
+    }
+  }
+
+  const phoneRegex = /^(\+?\d{1,2}\s?)?(\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}$/
+  const checkPhoneInput = (e) => {
+    if (!phoneRegex.test(e.target.value)) {
+      setPhoneError(true)
+      setHelperText3('Please enter an vaild phone number!')
+    }
+    else {
+      setPhoneError(false)
+      setHelperText3('')
+    }
+  }
+
+  useEffect(() => {
+    if (!selectedFile) {
+      setPreview(undefined)
+      return
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile)
+    setPreview(objectUrl)
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl)
+  }, [selectedFile])
+
+  // maximum file size 15MB
+  const MAX_FILE_SIZE = 15000000
+
+  const inputFile = useRef(null)
+  function handleFileUpload(e) {
+    console.log(1)
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile(undefined)
+      return
+    }
+    const file = e.target.files[0]
+    // check for file type, has to be image jpg or png
+    const fileExtension = file.name.substring(file.name.lastIndexOf('.'))
+    if (fileExtension !== '.jpg' && fileExtension !== '.jpeg' && fileExtension !== '.png') {
+      alert('Files must be jpg or png')
+      // if file type is not jpg or png, wipe out the input field and retain the input type
+      inputFile.current.value = ''
+      inputFile.current.type = 'file'
+      return
+    }
+    // check if the file size exceed the limit
+    if (file.size > MAX_FILE_SIZE) {
+      alert('File size exceeds the limit (15 Mb)')
+      inputFile.current.value = ''
+      inputFile.current.type = 'file'
+      return
+    }
+    console.log(file)
+    setSelectedFile(file)
+    setUser({ ...user, file: file })
+  }
+
+  const dispatch = useDispatch()
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -42,60 +165,45 @@ export function Profile() {
   };
 
   function handleChange(e) {
+    console.log(user)
     setUser({ ...user, [e.target.name]: e.target.value })
-    console.log(user)
-  }
-
-  function handleFile(file) {
-    setUser({ ...user, file: file })
-    console.log(user)
   }
 
   async function handleUpdate() {
-    const res = await updateUser(user._id, user)
-    console.log(res)
+    if (usernameError || emailError || phoneError || ageError) return
+    await updateUser(user._id, user)
+    dispatch(fetchUserInfo(user._id))
+    handleClose()
   }
-
-
-  useEffect(() => {
-    async function loadUserData() {
-      const token = sessionStorage.getItem('User');
-      if (token) {
-        const decodeUser = jwt_decode.jwtDecode(token);
-        const profileImg = await getImage(decodeUser.profileImgId)
-        decodeUser.profileImg = profileImg
-        setUser(decodeUser);
-      }
-    }
-    loadUserData();
-  }, []); // This effect only runs once to set the user
 
   // useEffect(() => {
   //   async function fetchUserRecipes() {
   //     if (user && user._id) { // Ensure 'user' is set before fetching recipes
   //       const recipes = await getRecipes();
-  //       const filteredRecipes = recipes.data.filter(recipe => recipe.user === user._id);
-  //       const recipe_ids = filteredRecipes.map(recipe => recipe.recipeId);
-  //       const res = await fetchRecipeByIdsAPI(recipe_ids);
-  //       console.log('recipes:', res);
-  //       setRecipes(res.data);
+  //       if (!recipes.data.message) {
+  //         const filteredRecipes = recipes.data.filter(recipe => recipe.user === user._id);
+  //         const recipe_ids = filteredRecipes.map(recipe => recipe.recipeId);
+  //         const res = await fetchRecipeByIdsAPI(recipe_ids);
+  //         setRecipes(res.data);
+  //       }
   //     }
   //   }
   //   fetchUserRecipes();
   // }, [user]); // This effect runs whenever 'user' changes
 
+  const recipesRef = useRef(null)
   // show the savedRecipes
   function toggleSavedRecipes() {
     setShow(!show)
-    document.querySelector('.savedRecipes').classList.toggle('show')
+    setOpenRecipes(!openRecipes)
   }
 
   return (
     <div className="profile">
       <div className="profile-details">
         <div className="profile-left">
-          <img src={user.profileImg?.data} alt="profile-img" />
-          <h2>{user.username}</h2>
+          <img src={userData.profileImg} alt="profile-img" />
+          <h2>{userData.username}</h2>
         </div>
         <div className="profile-right">
           <IconButton className="editBtn" onClick={handleClickOpen}>
@@ -104,23 +212,23 @@ export function Profile() {
           <h1>Profile Details</h1>
           <div>
             <label htmlFor="">Name:</label>
-            <span>{user.username}</span>
+            <span>{userData.username}</span>
           </div>
           <div>
             <label htmlFor="">Age:</label>
-            <span>{user.age}</span>
+            <span>{userData.age}</span>
           </div>
           <div>
             <label htmlFor="">Phone:</label>
-            <span>{user.phone}</span>
+            <span>{userData.phone}</span>
           </div>
           <div>
             <label htmlFor="">Email:</label>
-            <span>{user.email}</span>
+            <span>{userData.email}</span>
           </div>
           <div>
             <label htmlFor="">Joined Date:</label>
-            <span>{user.joinDate?.slice(0, 10)}</span>
+            <span>{userData.joinDate?.slice(0, 10)}</span>
           </div>
         </div>
       </div>
@@ -129,7 +237,7 @@ export function Profile() {
         {show ? <ExpandMoreIcon fontSize="large" /> : <ExpandLessIcon fontSize="large" />}
       </IconButton>
 
-      {/* <div className='savedRecipes'>
+      {openRecipes && <div className='savedRecipes' ref={recipesRef}>
         {recipes?.map((recipe) => (
           <Link key={recipe.id} to={`/recipe-info/${recipe.id}`} className="recipe-item">
             <IconButton className="delBtn">
@@ -141,14 +249,16 @@ export function Profile() {
             <h2>{recipe.title}</h2>
           </Link>
         ))}
-      </div> */}
+      </div>}
+
       <BootstrapDialog
+        className="updateDialog"
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
       >
-        <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Update Profile
+        <DialogTitle sx={{ m: 0, p: 2, fontWeight: 'bold', padding: '20px' }} id="customized-dialog-title">
+          Edit your profile
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -162,28 +272,104 @@ export function Profile() {
         >
           <CloseIcon />
         </IconButton>
-        <DialogContent dividers>
-          <form onSubmit={handleUpdate}>
-            <UploadFile onFile={handleFile} />
-            <div>
-              <label htmlFor="">Name:</label>
-              <input name="username" type="text" value={user.username} onChange={handleChange} />
+        <DialogContent dividers >
+          <form className="updateForm">
+            <div className="form-top">
+              <img className="profileImg" src={preview ? preview : userData.profileImg} alt="profileImg" />
+              <div className="form-top-right">
+                <Button
+                  className="upload-photo-btn"
+                  component="label"
+                  role={undefined}
+                  variant="outlined"
+                  tabIndex={-1}
+                  startIcon={<CloudUploadIcon />}
+                >
+                  Upload Photo
+                  <VisuallyHiddenInput
+                    type="file"
+                    onChange={handleFileUpload}
+                    multiple
+                    required
+                  />
+                </Button>
+                <p>Must be PNG or JPG file</p>
+              </div>
             </div>
-            <div>
-              <label htmlFor="">Age:</label>
-              <input name="age" type="text" value={user.age} onChange={handleChange} />
-            </div>
-            <div>
-              <label htmlFor="">Phone:</label>
-              <input name="phone" type="text" value={user.phone} onChange={handleChange} />
-            </div>
-            <div>
-              <label htmlFor="">Email:</label>
-              <input name="email" type="text" value={user.email} onChange={handleChange} />
+            <div className="form-bottom">
+              <div>
+                <label htmlFor="">Name</label>
+                <TextField
+                  className="update-ipt"
+                  hiddenLabel
+                  id="filled-hidden-label-normal"
+                  defaultValue={user.username}
+                  name="username"
+                  variant="outlined"
+                  onChange={handleChange}
+                  onBlur={checkUsernameInput}
+                  helperText={helperText2}
+                  error={usernameError}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="">Age</label>
+                <TextField
+                  className="update-ipt"
+                  hiddenLabel
+                  id="filled-hidden-label-normal"
+                  defaultValue={user.age}
+                  name="age"
+                  variant="outlined"
+                  onChange={handleChange}
+                  onBlur={checkAgeInput}
+                  helperText={helperText4}
+                  error={ageError}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="">Phone</label>
+                <TextField
+                  className="update-ipt"
+                  hiddenLabel
+                  id="filled-hidden-label-normal"
+                  defaultValue={user.phone}
+                  name="phone"
+                  variant="outlined"
+                  onChange={handleChange}
+                  onBlur={checkPhoneInput}
+                  helperText={helperText3}
+                  error={phoneError}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="">Email</label>
+                <TextField
+                  className="update-ipt"
+                  defaultValue={user.email}
+                  name="email"
+                  variant="outlined"
+                  onChange={handleChange}
+                  onBlur={checkEmailInput}
+                  helperText={helperText1}
+                  error={emailError}
+                  required
+                />
+              </div>
             </div>
           </form>
         </DialogContent>
-       
+        <DialogActions className="dialog-actions">
+          <Button className="cancel-Btn" variant="outlined" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button className="update-Btn" type="submit" onClick={handleUpdate} variant="contained" >
+            Save changes
+          </Button>
+        </DialogActions>
       </BootstrapDialog>
     </div>
   )

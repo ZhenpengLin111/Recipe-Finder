@@ -114,7 +114,7 @@
   }
 
   .savedRecipes {
-    opacity: 0;
+    // opacity: 0;
     width: 900px;
     display: flex;
     flex-wrap: wrap;
@@ -147,13 +147,171 @@
     }
   }
 
-  .savedRecipes.show {
-    opacity: 1;
-    transform: translateY(-5px);
-    animation: fadeInTop .3s ease-in-out forwards;
+  // .savedRecipes.show {
+  //   opacity: 1;
+  //   transform: translateY(-5px);
+  //   animation: fadeInTop .3s ease-in-out forwards;
+  // }
+
+  .select-file {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    margin-bottom: 20px;
+    cursor: pointer;
   }
 
+  .profileImg-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px dashed gray;
+    border-radius: 4px;
+  }
+
+  .profileImg-upload-btn {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  .preview {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .preview-img {
+    object-fit: cover;
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .deleteBtn {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    border-radius: 4px;
+
+    .delIcon {
+      opacity: 0;
+      transition: opacity .3s ease-in-out;
+    }
+  }
+
+  .deleteBtn:hover .delIcon {
+    opacity: 1;
+  }
+
+
 }
+
+.profileImg {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.form-top {
+  display: flex;
+  align-items: center;
+
+  .form-top-right {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+    .upload-photo-btn {
+      border-radius: 25px;
+      padding: 10px 18px;
+    }
+
+    p {
+      margin-top: 5px;
+      margin-bottom: 0px;
+    }
+  }
+}
+
+.form-bottom {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    margin-bottom: 10px;
+
+    .update-ipt {
+      width: 100%;
+      border-radius: 25px;
+
+      div {
+        width: 100%;
+        border-radius: 25px;
+
+        input {
+          width: 100%;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+
+
+
+}
+
+.dialog-actions {
+  height: 60px;
+
+  .cancel-Btn {
+    border-radius: 25px;
+    background-color: white;
+    padding: 10px 18px;
+    color: gray;
+  }
+
+  .update-Btn {
+    border-radius: 25px;
+    background-color: black;
+    padding: 10px 18px;
+  }
+
+  .update-Btn:hover {
+    background-color: #455d7a;
+  }
+}
+
+.updateDialog {
+  .css-1t1j96h-MuiPaper-root-MuiDialog-paper {
+    border-radius: 25px;
+    
+  }
+
+  .updateForm {
+    padding: 20px;
+  }
+}
+
 
 @keyframes fadeInTop {
   to {

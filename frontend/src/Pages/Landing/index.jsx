@@ -1,6 +1,6 @@
 import { Login } from "../../Component/Login"
 import { Register } from "../../Component/Register"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -17,12 +17,16 @@ export function Landing() {
   const [alert, setAlert] = useState(false)
   const [message, setMessage] = useState('')
 
+  useEffect(()=> {
+    console.log(alert)
+  }, [alert])
   function getLoading(bol) {
     setLoading(bol)
   }
 
   // setting msg for the alert
   function getMsg(msg) {
+    console.log(msg)
     setAlert(true)
     setMessage(msg)
     setTimeout(() => {
@@ -38,7 +42,7 @@ export function Landing() {
   const navigate = useNavigate()
   return (
     <div className="landing">
-      {alert ? <ALERT msg={message} /> : null}
+      {alert && <ALERT msg={message} />}
       {loading ? <Loading /> : null}
       <div className="login-register">
         <FontAwesomeIcon icon={faUtensils} className='app-logo' />

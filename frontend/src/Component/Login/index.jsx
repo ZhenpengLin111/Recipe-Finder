@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { verifyUser } from "../../apis/users";
 import { useRef, useState } from "react";
-import axios from "axios";
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -12,7 +10,10 @@ import FormControl from '@mui/material/FormControl';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormHelperText from '@mui/material/FormHelperText';
+import { useDispatch } from 'react-redux'
 import './index.scss'
+import { fetchLogin } from "../../store/modules/user";
+import { verifyUser } from "../../apis/users";
 
 export function Login({ onGetLoading, onGetMsg }) {
   const [user, setUser] = useState({
@@ -29,6 +30,7 @@ export function Login({ onGetLoading, onGetMsg }) {
   const handleMouseDownPassword = (event) => event.preventDefault();
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -37,10 +39,11 @@ export function Login({ onGetLoading, onGetMsg }) {
       return
     }
     let res = await verifyUser(user)
+    dispatch(fetchLogin(res.token))
     onGetLoading(false)
     if (res.token) {
-      sessionStorage.setItem('User', res.token)
-      axios.defaults.headers.common['authorization'] = `Bearer ${res.token}`
+      // sessionStorage.setItem('User', res.token)
+      // axios.defaults.headers.common['authorization'] = `Bearer ${res.token}`
       onGetMsg('Login Sucessfully.')
       setTimeout(() => {
         navigate('/')

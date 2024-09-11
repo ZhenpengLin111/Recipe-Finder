@@ -105,6 +105,7 @@ export function Register({ onGetMsg, onLogin }) {
 
   async function handleSubmit(e) {
     e.preventDefault()
+    if (usernameError || emailError || phoneError || ageError || passwordError) return
     const res = await createUser(user)
     console.log(res)
     if (!res.data.message) {
