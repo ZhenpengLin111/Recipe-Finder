@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { getRecipes, updateUser } from "../../apis/users"
+import { deleteRecipe, getRecipes, updateUser } from "../../apis/users"
 import './index.scss'
 import { fetchRecipeByIdsAPI } from "../../apis/recipes"
 import { Link } from "react-router-dom"
@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchUserInfo } from "../../store/modules/user"
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import TextField from '@mui/material/TextField';
+import DialogContentText from '@mui/material/DialogContentText';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -48,6 +49,9 @@ export function Profile() {
   const [show, setShow] = useState(true)
   // dialog for editing user info
   const [open, setOpen] = useState(false);
+  // alert message for deleting saved recipes
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [recipeId, setRecipeId] = useState(false)
   const [openRecipes, setOpenRecipes] = useState(false);
   const [helperText1, setHelperText1] = useState('') // email
   const [helperText2, setHelperText2] = useState('') // username
@@ -176,26 +180,36 @@ export function Profile() {
     handleClose()
   }
 
-  // useEffect(() => {
-  //   async function fetchUserRecipes() {
-  //     if (user && user._id) { // Ensure 'user' is set before fetching recipes
-  //       const recipes = await getRecipes();
-  //       if (!recipes.data.message) {
-  //         const filteredRecipes = recipes.data.filter(recipe => recipe.user === user._id);
-  //         const recipe_ids = filteredRecipes.map(recipe => recipe.recipeId);
-  //         const res = await fetchRecipeByIdsAPI(recipe_ids);
-  //         setRecipes(res.data);
-  //       }
-  //     }
-  //   }
-  //   fetchUserRecipes();
-  // }, [user]); // This effect runs whenever 'user' changes
+  useEffect(() => {
+    async function fetchUserRecipes() {
+      if (user && user._id) { // Ensure 'user' is set before fetching recipes
+        const recipes = await getRecipes();
+        if (!recipes.data.message) {
+          const filteredRecipes = recipes.data.filter(recipe => recipe.user === user._id);
+          const recipe_ids = filteredRecipes.map(recipe => recipe.recipeId);
+          const res = await fetchRecipeByIdsAPI(recipe_ids);
+          setRecipes(res.data);
+        }
+      }
+    }
+    fetchUserRecipes();
+  }, [user]); // This effect runs whenever 'user' changes
 
   const recipesRef = useRef(null)
   // show the savedRecipes
   function toggleSavedRecipes() {
     setShow(!show)
     setOpenRecipes(!openRecipes)
+  }
+
+  function openAlert(id) {
+    setAlertOpen(true)
+    setRecipeId(id)
+  }
+
+  async function handleDelRecipe() {
+    await deleteRecipe(recipeId)
+    setAlertOpen(false)
   }
 
   return (
@@ -239,15 +253,17 @@ export function Profile() {
 
       {openRecipes && <div className='savedRecipes' ref={recipesRef}>
         {recipes?.map((recipe) => (
-          <Link key={recipe.id} to={`/recipe-info/${recipe.id}`} className="recipe-item">
-            <IconButton className="delBtn">
-              <ClearIcon />
-            </IconButton>
-            <div className='recipe-img'>
-              <img src={recipe.image} alt={recipe.title} />
-            </div>
-            <h2>{recipe.title}</h2>
-          </Link>
+          <div className="recipe-item">
+            <IconButton className="delBtn" onClick={()=> openAlert(recipe.id)}>
+                <ClearIcon />
+              </IconButton>
+            <Link key={recipe.id} to={`/recipe-info/${recipe.id}`} >
+              <div className='recipe-img'>
+                <img src={recipe.image} alt={recipe.title} />
+              </div>
+              <h2>{recipe.title}</h2>
+            </Link>
+          </div>
         ))}
       </div>}
 
@@ -371,6 +387,28 @@ export function Profile() {
           </Button>
         </DialogActions>
       </BootstrapDialog>
+
+      <Dialog
+        open={alertOpen}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          {'Confirmation'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure you want to delete this recipe?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={()=> setAlertOpen(false)}>Cancel</Button>
+          <Button onClick={handleDelRecipe} variant="contained">
+            Delete recipe
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   )
 }

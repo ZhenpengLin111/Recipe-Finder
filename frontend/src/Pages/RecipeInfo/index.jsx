@@ -29,7 +29,7 @@ function RecipeInfo() {
   const [user, setUser] = useState({})
   const [view, setView] = useState(false)
   const [check, setCheck] = useState(false)
-  
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -115,10 +115,10 @@ function RecipeInfo() {
         user: '',
         dateSaved: new Date()
       }
-      const res = await savedRecipe(recipe)
+      await savedRecipe(recipe)
     } else {
       setCheck(false)
-      const res = await deleteRecipe(id)
+      await deleteRecipe(id)
     }
   }
 
