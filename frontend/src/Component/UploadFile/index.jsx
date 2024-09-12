@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from "@mui/material"
 import { useState, useEffect, useRef } from 'react';
 
-export function UploadFile({onFile}) {
+export function UploadFile({ onFile }) {
   const [selectedFile, setSelectedFile] = useState()
   const [preview, setPreview] = useState()
 

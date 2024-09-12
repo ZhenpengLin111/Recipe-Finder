@@ -79,7 +79,7 @@ userRoutes.route('/users').post(async (req, res) => {
 
 })
 
-// #4 - Update One
+// #4 - Update User Profile
 userRoutes.route('/users/:id').put(async (req, res) => {
   let db = database.getDb()
   // update the user object to mongodb
@@ -100,7 +100,29 @@ userRoutes.route('/users/:id').put(async (req, res) => {
   res.json(data)
 })
 
-// #5 - Delete One
+// #5 - Update User password
+userRoutes.route('/users/password/:id').put(async (req, res) => {
+  let db = database.getDb()
+  const hash = await bcrypt.hash(req.body.password, SALT_ROUND)
+  // update the user object to mongodb
+  let mongoObject = {
+    $set: {
+      username: req.body.username,
+      age: req.body.age,
+      email: req.body.email,
+      password: hash,
+      joinDate: req.body.joinDate,
+      phone: req.body.phone,
+      profileImgId: req.body.profileImgId
+    }
+  }
+
+  // update the user, provide the id to find the post
+  let data = await db.collection('users').updateOne({ _id: new ObjectId(req.params.id) }, mongoObject)
+  res.json(data)
+})
+
+// #6 - Delete One
 userRoutes.route('/users/:id').delete(async (req, res) => {
   let db = database.getDb()
 

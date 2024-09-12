@@ -1,5 +1,3 @@
-// import request from "request"
-// const URL = 'http://localhost:5001'
 import { request } from "../utils"
 
 // Users
@@ -33,6 +31,12 @@ export async function updateUser(id, user) {
   }
   user.profileImg = ''
   const res = await request.put(`/users/${id}`, user)
+  return res
+}
+
+export async function changePassword(user) {
+  user.profileImg = ''
+  const res = await request.put(`/users/password/${user._id}`, user)
   return res
 }
 

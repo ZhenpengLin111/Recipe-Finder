@@ -6,6 +6,7 @@ import NutrientsSearch from "../Pages/NutrientsSearch"
 import RecipeInfo from "../Pages/RecipeInfo";
 import { Landing } from "../Pages/Landing";
 import { Profile } from "../Pages/Profile";
+import { ChangePassword } from "../Pages/ChangePassword";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         path: 'profile',
         element: <Profile />
       },
+      {
+        path: 'changePassword',
+        element: <ChangePassword />
+      }
     ]
   },
   {

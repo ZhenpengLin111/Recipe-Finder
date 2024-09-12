@@ -13,6 +13,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Logout from '@mui/icons-material/Logout';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUserInfo } from '../../store/modules/user';
+import LockIcon from '@mui/icons-material/Lock';
 
 
 function Navbar() {
@@ -122,6 +123,14 @@ function Navbar() {
                         <MenuItem className='menuItem' onClick={handleClose}>
                             <Link to="/profile" >
                                 <Avatar /> Profile
+                            </Link>
+                        </MenuItem>
+                        <MenuItem className='menuItem' onClick={handleClose}>
+                            <Link to="/changePassword" >
+                                <Avatar>
+                                    <LockIcon />
+                                </Avatar>
+                                Change Password
                             </Link>
                         </MenuItem>
                         <Divider />
