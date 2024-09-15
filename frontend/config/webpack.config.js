@@ -293,11 +293,14 @@ module.exports = function (webpackEnv) {
       ],
     },
     resolve: {
-      // fallback: {
-      //   crypto: require.resolve('crypto-browserify'),
-      //   stream: require.resolve('stream-browserify'),
-      //   vm: require.resolve('vm-browserify'),
-      // },
+      fallback: {
+        // crypto: require.resolve('crypto-browserify'),
+        // stream: require.resolve('stream-browserify'),
+        // vm: require.resolve('vm-browserify'),
+        // fs: false,
+        os: require.resolve('os-browserify/browser'),
+        path: require.resolve('path-browserify'),
+      },
 
       // This allows you to set a fallback for where webpack should look for modules.
       // We placed these paths second because we want `node_modules` to "win"
@@ -329,7 +332,7 @@ module.exports = function (webpackEnv) {
       plugins: [
         // new webpack.ProvidePlugin({
         //   process: 'process/browser',
-        //   Buffer: ['buffer', 'Buffer'],
+        //   // Buffer: ['buffer', 'Buffer'],
         // }),
         // Prevents users from importing files from outside of src/ (or node_modules/).
         // This often causes confusion because we only process files within src/ with babel.

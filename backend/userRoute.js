@@ -142,6 +142,8 @@ userRoutes.route('/users/login').post(async (req, res) => {
     // compare if passwords are the same if email is found
     const confirmation = await bcrypt.compare(req.body.password, user.password)
     if (confirmation) {
+      user.API_KEY = process.env.SPOONACULAR_API_KEY
+      console.log(user)
       // jwt token
       const token = jwt.sign(user, process.env.SECRETKEY, { expiresIn: '1h' })
       res.json({ success: true, token })

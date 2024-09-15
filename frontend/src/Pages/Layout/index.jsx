@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchUserInfo } from "../../store/modules/user"
 import { decodedUser } from "../../utils/token"
+
 const Layout = () => {
   const dispatch = useDispatch()
   const token = useSelector(state => state.user.token)
