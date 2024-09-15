@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, useCallback } from "react"
 import { deleteRecipe, getRecipes, updateUser } from "../../apis/users"
 import './index.scss'
 import { fetchRecipeByIdsAPI } from "../../apis/recipes"
@@ -154,7 +154,6 @@ export function Profile() {
       inputFile.current.type = 'file'
       return
     }
-    console.log(file)
     setSelectedFile(file)
     setUser({ ...user, file: file })
   }
@@ -170,7 +169,6 @@ export function Profile() {
   };
 
   function handleChange(e) {
-    console.log(user)
     setUser({ ...user, [e.target.name]: e.target.value })
   }
 
@@ -181,22 +179,34 @@ export function Profile() {
     handleClose()
   }
 
-  async function fetchUserRecipes() {
-    if (user && user._id) { // Ensure 'user' is set before fetching recipes
-      const recipes = await getRecipes();
-      if (!recipes.data.message) {
-        const filteredRecipes = recipes.data.filter(recipe => recipe.user === user._id);
-        const recipe_ids = filteredRecipes.map(recipe => recipe.recipeId);
-        const res = await fetchRecipeByIdsAPI(recipe_ids);
-        setRecipes(res.data);
+  const fetchUserRecipes = useCallback(async () => {
+    try {
+      if (user && user._id) {
+        const recipes = await getRecipes();
+
+        if (recipes && recipes.data && !recipes.data.message) {
+          const filteredRecipes = recipes.data.filter(recipe => recipe.user === user._id);
+
+          if (filteredRecipes.length > 0) {
+            const recipe_ids = filteredRecipes.map(recipe => recipe.recipeId);
+            const res = await fetchRecipeByIdsAPI(recipe_ids);
+
+            if (res && res.data) {
+              setRecipes(res.data);
+            }
+          }
+        }
       }
+    } catch (error) {
+      console.error("Error fetching recipes:", error);
     }
-  }
+  }, [user]);  // Ensure that `fetchUserRecipes` only depends on `user`
 
   useEffect(() => {
     fetchUserRecipes();
-  }, [user]); // This effect runs whenever 'user' changes
+  }, [fetchUserRecipes]);  // Include `fetchUserRecipes` as a dependency
 
+  
   const recipesRef = useRef(null)
   // show the savedRecipes
   function toggleSavedRecipes() {
@@ -256,11 +266,11 @@ export function Profile() {
 
       {openRecipes && <div className='savedRecipes' ref={recipesRef}>
         {recipes?.map((recipe) => (
-          <div className="recipe-item">
+          <div className="recipe-item" key={recipe.id}>
             <IconButton className="delBtn" onClick={()=> openAlert(recipe.id)}>
                 <ClearIcon />
               </IconButton>
-            <Link key={recipe.id} to={`/recipe-info/${recipe.id}`} >
+            <Link  to={`/recipe-info/${recipe.id}`} >
               <div className='recipe-img'>
                 <img src={recipe.image} alt={recipe.title} />
               </div>

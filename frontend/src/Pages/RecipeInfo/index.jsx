@@ -95,7 +95,6 @@ function RecipeInfo() {
       const token = sessionStorage.getItem('User')
       if (token) {
         const decodeUser = jwt_decode.jwtDecode(token)
-        console.log(decodeUser)
         setUser(decodeUser)
         setView(true)
       } else {

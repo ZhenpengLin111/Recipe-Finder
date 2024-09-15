@@ -42,11 +42,6 @@ export async function changePassword(user) {
 
 export async function verifyUser(user) {
   const res = await request.post(`/users/login`, user)
-  // if (res.data.success) {
-  //   return res.data
-  // } else {
-  //   return res.data
-  // }
   return res.data
 }
 

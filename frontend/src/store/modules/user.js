@@ -29,7 +29,6 @@ const {setToken, setUserInfo, clearUserInfo} = userStore.actions
 // async function, get otken after login successfully
 const fetchLogin = (token) => {
   return async (dispatch) => {
-    // const res = await verifyUser(user)
     dispatch(setToken(token))
   }
 }
