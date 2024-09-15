@@ -318,6 +318,27 @@
   }
 }
 
+.alertDialog {
+  #alert-dialog-title {
+    display: flex;
+    align-items: center;
+
+    .warning-icon {
+      margin-right: 10px;
+    }
+  }
+
+  .cancelDelBtn {
+    color: black;
+  }
+
+  .delRecipeBtn {
+    background-color: black;
+  }
+  .delRecipeBtn:hover {
+    background-color: #455d7a;
+  }
+}
 
 @keyframes fadeInTop {
   to {

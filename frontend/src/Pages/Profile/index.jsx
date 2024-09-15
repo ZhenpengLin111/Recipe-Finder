@@ -20,6 +20,7 @@ import { fetchUserInfo } from "../../store/modules/user"
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import TextField from '@mui/material/TextField';
 import DialogContentText from '@mui/material/DialogContentText';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   '& .MuiDialogContent-root': {
@@ -51,7 +52,7 @@ export function Profile() {
   const [open, setOpen] = useState(false);
   // alert message for deleting saved recipes
   const [alertOpen, setAlertOpen] = useState(false);
-  const [recipeId, setRecipeId] = useState(false)
+  const [recipeId, setRecipeId] = useState()
   const [openRecipes, setOpenRecipes] = useState(false);
   const [helperText1, setHelperText1] = useState('') // email
   const [helperText2, setHelperText2] = useState('') // username
@@ -180,18 +181,19 @@ export function Profile() {
     handleClose()
   }
 
-  useEffect(() => {
-    async function fetchUserRecipes() {
-      if (user && user._id) { // Ensure 'user' is set before fetching recipes
-        const recipes = await getRecipes();
-        if (!recipes.data.message) {
-          const filteredRecipes = recipes.data.filter(recipe => recipe.user === user._id);
-          const recipe_ids = filteredRecipes.map(recipe => recipe.recipeId);
-          const res = await fetchRecipeByIdsAPI(recipe_ids);
-          setRecipes(res.data);
-        }
+  async function fetchUserRecipes() {
+    if (user && user._id) { // Ensure 'user' is set before fetching recipes
+      const recipes = await getRecipes();
+      if (!recipes.data.message) {
+        const filteredRecipes = recipes.data.filter(recipe => recipe.user === user._id);
+        const recipe_ids = filteredRecipes.map(recipe => recipe.recipeId);
+        const res = await fetchRecipeByIdsAPI(recipe_ids);
+        setRecipes(res.data);
       }
     }
+  }
+
+  useEffect(() => {
     fetchUserRecipes();
   }, [user]); // This effect runs whenever 'user' changes
 
@@ -210,6 +212,7 @@ export function Profile() {
   async function handleDelRecipe() {
     await deleteRecipe(recipeId)
     setAlertOpen(false)
+    fetchUserRecipes()
   }
 
   return (
@@ -389,12 +392,14 @@ export function Profile() {
       </BootstrapDialog>
 
       <Dialog
+      className="alertDialog"
         open={alertOpen}
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
+          <WarningAmberIcon className="warning-icon"/>
           {'Confirmation'}
         </DialogTitle>
         <DialogContent>
@@ -403,8 +408,8 @@ export function Profile() {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={()=> setAlertOpen(false)}>Cancel</Button>
-          <Button onClick={handleDelRecipe} variant="contained">
+          <Button className="cancelDelBtn" onClick={()=> setAlertOpen(false)}>Cancel</Button>
+          <Button className="delRecipeBtn" onClick={handleDelRecipe} variant="contained">
             Delete recipe
           </Button>
         </DialogActions>
