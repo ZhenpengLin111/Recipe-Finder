@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getToken, decodedUser } from "../utils";
+// import { getToken, decodedUser } from "../utils";
 // API key
 const API_KEY = "4f630803698b4cbd930e7660732d2328";
 // const API_KEY = decodedUser(getToken()).API_KEY
